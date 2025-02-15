@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 // Trang chủ
 Route::get('/', function () {
-    return view('Backend.home');
+    return view('Frontend.home');
 })->name('home');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // Đăng ký
@@ -24,3 +25,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Dashboard - Trang chính sau khi đăng nhập
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware('auth');
 
+Route::post('/cart/add', [CartController::class, 'add'])->name('add_to_cart');

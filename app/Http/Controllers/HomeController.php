@@ -12,11 +12,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        $data = [
-            'products' => $products
-        ];
-        return view('Backend.home', $data);
+        $products = Product::paginate(9); // 9 sản phẩm mỗi trang
+        return view('Frontend.home', compact('products'));
     }
+
 
 }
