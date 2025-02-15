@@ -12,7 +12,7 @@ class AuthController extends Controller
     // Hiển thị form đăng ký
     public function showRegisterForm()
     {
-        return view('auth.register');
+        return view('Backend.auth.register');
     }
 
     // Xử lý đăng ký
@@ -39,7 +39,7 @@ class AuthController extends Controller
     // Hiển thị form đăng nhập
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('Backend.auth.login');
     }
 
     // Xử lý đăng nhập
@@ -53,7 +53,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard')->with('success', 'Đăng nhập thành công!');
+            return redirect()->route('admin.dashboard')->with('success', 'Đăng nhập thành công!');
         }
 
         return redirect()->back()->withErrors(['email' => 'Email hoặc mật khẩu không chính xác'])->withInput($request->only('email'));

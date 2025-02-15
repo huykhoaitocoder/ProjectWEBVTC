@@ -1,25 +1,26 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 // Trang chủ
 Route::get('/', function () {
-    return view('home');
+    return view('Backend.home');
 })->name('home');
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
 // Đăng ký
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/admin/register', [AuthController::class, 'showRegisterForm'])->name('admin.register.show');
+Route::post('/admin/register', [AuthController::class, 'register'])->name('admin.register');
 
 // Đăng nhập
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('admin.login.show');
+Route::post('/admin/login', [AuthController::class, 'login'])->name('admin.login');
 
 // Đăng xuất - nên là POST để bảo mật tốt hơn
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Dashboard - Trang chính sau khi đăng nhập
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware('auth');
+

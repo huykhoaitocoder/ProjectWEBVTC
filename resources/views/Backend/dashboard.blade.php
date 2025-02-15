@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -41,10 +40,13 @@
         <a href="#">Đơn Hàng</a>
         <a href="#">Khách Hàng</a>
         <a href="#">Báo Cáo</a>
-        <form action="{{ route('logout') }}" method="POST" class="mt-3">
-            @csrf
-            <button type="submit" class="btn btn-danger w-100">Đăng Xuất</button>
-        </form>
+        <div class="mt-3">
+            <p>Xin chào, <strong>{{ $user->name }}</strong></p>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger w-100">Đăng Xuất</button>
+            </form>
+        </div>
     </div>
     <!-- Content -->
     <div class="content flex-grow-1">

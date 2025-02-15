@@ -41,7 +41,7 @@
         </div>
     @endif
 
-    <form action="{{ route('register') }}" method="POST">
+    <form action="{{ route('admin.register') }}" method="POST">
         @csrf
         <div class="mb-3">
             <input type="text" class="form-control" name="name" placeholder="Tên" value="{{ old('name') }}" required>
