@@ -33,7 +33,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login.form')->with('success', 'Đăng ký thành công, vui lòng đăng nhập!');
+        return redirect()->route('admin.login.show')->with('success', 'Đăng ký thành công, vui lòng đăng nhập!');
     }
 
     // Hiển thị form đăng nhập

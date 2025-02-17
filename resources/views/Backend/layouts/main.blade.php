@@ -53,14 +53,11 @@
                 <span>Chợ Phần Mềm</span>
             </a>
         </div>
-        <a href="{{ route('home') }}" class="nav-link d-inline-block">
-            <i class="bi bi-house-door"></i> Trang Chủ
+        <a href="#" class="nav-link d-inline-block">
+            <i class="bi bi-box"></i> Game
         </a>
         <a href="#" class="nav-link d-inline-block">
-            <i class="bi bi-box"></i> Sản Phẩm
-        </a>
-        <a href="#" class="nav-link d-inline-block">
-            <i class="bi bi-envelope"></i> Liên Hệ
+            <i class="bi bi-envelope"></i> Ứng Dụng
         </a>
 
     </div>

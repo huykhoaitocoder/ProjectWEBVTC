@@ -25,16 +25,20 @@
             @foreach($products as $product)
                 <div class="col">
                     <div class="card h-100 shadow-sm rounded-4 overflow-hidden">
-                        <img src="{{ $product->image }}" class="card-img-top" alt="{{ $product->name }}" style="height: 200px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column justify-content-between">
-                            <div>
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <p class="card-text">{{ $product->description }}</p>
-                                <p class="card-text"><strong>Giá: </strong>{{ number_format($product->price, 0, ',', '.') }} VND</p>
+                        <div class="ratio ratio-16x9">
+                            <iframe src="{{ $product->video_url }}" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-body d-flex flex-row align-items-start">
+                            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="flex-grow-1">
+                                <h6 class="card-title mb-1">{{ $product->name }}</h6>
+                                <p class="small mb-1">Giá: {{ number_format($product->price, 0, ',', '.') }} VND</p>
+                                <p class="small mb-1">{{ $product->description }}</p>
+                                <p class="small text-warning mb-0">&#9733; {{ $product->rating }}</p>
                             </div>
-                            <div>
-                                <button onclick="main.addToCart({{$product->id}},'{{ $product->name }}','{{ $product->image }}',{{ $product->price}})" class="btn btn-primary w-100">Thêm vào giỏ hàng</button>
-                            </div>
+                            <button onclick="main.addToCart({{ $product->id }},'{{ $product->name }}','{{ $product->icon }}',{{ $product->price }})" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
