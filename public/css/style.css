@@ -41,3 +41,31 @@ body {
     }
 }
 
+.app-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Căn giữa các ứng dụng */
+    gap: 15px; /* Khoảng cách giữa các ứng dụng */
+}
+
+.app-item {
+    text-align: center;
+}
+
+.app-item img {
+    width: 100%; /* Ảnh to theo container */
+    max-width: 120px; /* Giới hạn max kích thước ảnh */
+    height: auto;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+
+.app-item:hover img {
+    transform: scale(1.1);
+}
+
+.app-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 8px;
+}

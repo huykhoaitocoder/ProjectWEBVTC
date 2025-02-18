@@ -20,7 +20,7 @@
     </button>
 </div>
 
-<!-- <div class="container mt-4">
+<div class="container mt-4">
     <div class="row text-center">
         @foreach($categories as $category)
             <div class="col-md-2 col-4 mb-3">
@@ -32,7 +32,7 @@
             </div>
         @endforeach
     </div>
-</div> -->
+</div>
 
 <div class="container mt-5">
     @php
@@ -46,13 +46,18 @@
     @endphp
 
     @foreach($sections as $section)
-        <h3 class="mt-4 mb-3">{{ $section['title'] }}</h3>
-        <div class="row">
-            @foreach($section['apps'] as $app)
-                @include('frontend.components.app_card', ['app' => $app])
-            @endforeach
-        </div>
+        @if($section['apps']->count() > 0)
+            <h3 class="mt-4 mb-3">{{ $section['title'] }}</h3>
+            <div class="app-list">
+                @foreach($section['apps'] as $app)
+                    <div class="app-item">
+                        <a href="{{ route('app.details', $app->id) }}">
+                            <img src="{{ asset($app->icon) }}" alt="{{ $app->name }}" class="app-icon">
+                            <p class="app-name">{{ $app->name }}</p>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        @endif
     @endforeach
 </div>
-
-@endsection

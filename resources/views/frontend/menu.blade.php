@@ -25,7 +25,7 @@
             </ul>
 
             <form class="d-flex ms-3" id="search-form">
-                <input id="search-input" class="form-control search-box" type="search" placeholder="Tìm kiếm ứng dụng..." aria-label="Search" style="display: none;">
+                <input id="search-input" class="form-control search-box" type="search" placeholder="Tìm kiếm ứng dụng..." aria-label="Search">
                 <button id="search-icon" class="btn btn-outline-success ms-2" type="submit">Tìm</button>
             </form>
 
