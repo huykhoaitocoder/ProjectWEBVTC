@@ -1,11 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\backend\UserController;
+use App\Http\Controllers\frontend\AppController;
 use App\Http\Controllers\frontend\PageController;
 
 Route::get('/', [PageController::class, 'index']);
@@ -13,6 +10,9 @@ Route::get('/', [PageController::class, 'index']);
 
 Route::get('/admin', [UserController::class, 'getLogin']);
 Route::post('/admin', [UserController::class, 'postLogin']);
+
+Route::get('/app/{id}', [AppController::class, 'show'])->name('app.details');
+
 // // Đăng ký
 // Route::get('/admin/register', [AuthController::class, 'showRegisterForm'])->name('admin.register.show');
 // Route::post('/admin/register', [AuthController::class, 'register'])->name('admin.register');
