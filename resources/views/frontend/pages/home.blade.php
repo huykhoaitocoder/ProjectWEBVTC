@@ -54,6 +54,7 @@
                         <a href="{{ route('app.details', $app->id) }}">
                             <img src="{{ asset($app->icon) }}" alt="{{ $app->name }}" class="app-icon">
                             <p class="app-name">{{ $app->name }}</p>
+                            <p class="app-rating">{{ number_format($app->average_rating, 1) }}<i class="fas fa-star"></i></p>
                         </a>
                     </div>
                 @endforeach

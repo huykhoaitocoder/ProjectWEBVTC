@@ -44,28 +44,57 @@ body {
 .app-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Căn giữa các ứng dụng */
-    gap: 15px; /* Khoảng cách giữa các ứng dụng */
+    justify-content: center;
+    gap: 15px;
 }
 
 .app-item {
-    text-align: center;
+    width: 120px;
+    text-align: left;
+    padding: 8px;
+    border-radius: 10px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.app-item:hover {
+    background: rgba(0, 128, 255, 0.1); /* Màu nền nổi bật */
+    transform: scale(1.05); /* Hiệu ứng phóng to nhẹ */
+}
+
+.app-item a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
 .app-item img {
-    width: 100%; /* Ảnh to theo container */
-    max-width: 120px; /* Giới hạn max kích thước ảnh */
+    width: 100%;
+    max-width: 120px;
     height: auto;
     border-radius: 20px;
-    transition: transform 0.3s ease;
-}
-
-.app-item:hover img {
-    transform: scale(1.1);
+    display: block;
 }
 
 .app-name {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
-    margin-top: 8px;
+    color: #555; /* Màu nhạt hơn */
+    margin-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
+.app-rating {
+    font-size: 14px;
+    color: #FFD700; /* Màu vàng */
+    margin-top: -3px; /* Dịch sát lên trên */
+    display: flex;
+    align-items: center;
+}
+
+.app-rating i {
+    margin-left: 2px;
+    font-size: 14px;
+}
+
