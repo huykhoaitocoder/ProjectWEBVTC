@@ -20,7 +20,7 @@
     </button>
 </div>
 
-<div class="container mt-4">
+<!-- <div class="container mt-4">
     <div class="row text-center">
         @foreach($categories as $category)
             <div class="col-md-2 col-4 mb-3">
@@ -32,7 +32,7 @@
             </div>
         @endforeach
     </div>
-</div>
+</div> -->
 
 <div class="container mt-5">
     @php

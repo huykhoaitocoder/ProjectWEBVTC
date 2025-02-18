@@ -18,8 +18,10 @@ class PageController extends Controller
 
         $seoData = [
             'title' => 'APKRebel Play - Kho ứng dụng',
-            'description' => 'Tải ứng dụng Android miễn phí, game mobile, ứng dụng trả phí, ứng dụng hack, mod, crack, ứng dụng đã gỡ và phiên bản cũ.',
-            'keywords' => ['APKRebel Play', 'ứng dụng Android', 'game mobile', 'ứng dụng hack', 'mod', 'crack'],
+            // 'description' => 'Tải ứng dụng Android miễn phí, game mobile, ứng dụng trả phí, ứng dụng hack, mod, crack, ứng dụng đã gỡ và phiên bản cũ.',
+            // 'keywords' => ['APKRebel Play', 'ứng dụng Android', 'game mobile', 'ứng dụng hack', 'mod', 'crack'],
+    //            <!-- <meta name="description" content="{{ $seoData['description'] }}">
+    // <meta name="keywords" content="{{ implode(',', $seoData['keywords']) }}"> -->
             'canonical' => url('/')
         ];
 

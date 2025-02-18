@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $seoData['title'] }}</title>
-    <meta name="description" content="{{ $seoData['description'] }}">
-    <meta name="keywords" content="{{ implode(',', $seoData['keywords']) }}">
+    <link rel="shortcut icon" href="{{ asset('images/icon.ico') }}">
     <link rel="canonical" href="{{ $seoData['canonical'] }}">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
