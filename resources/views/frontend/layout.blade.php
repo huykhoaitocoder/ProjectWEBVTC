@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $seoData['title'] }}</title>
     <link rel="shortcut icon" href="{{ asset('images/icon.ico') }}">
     <link rel="canonical" href="{{ $seoData['canonical'] }}">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-yRMo54Xy7gRpaKEgwKWiEAbJ3qRwKPumHibthA4n1jMv6+V6uLSEKElRz0LRP6JtRUtjUJz6HtjXpMOvhyVTfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
@@ -21,7 +22,6 @@
         <footer class="bg-white text-dark pt-5 pb-4 border-top">
             <div class="container">
                 <div class="row">
-                    <!-- Cột 1 - Về chúng tôi -->
                     <div class="col-md-3 mb-4">
                         <h5 class="text-uppercase">Về chúng tôi</h5>
                         <ul class="list-unstyled">
@@ -33,7 +33,6 @@
                         </ul>
                     </div>
 
-                    <!-- Cột 2 - Liên kết nhanh -->
                     <div class="col-md-3 mb-4">
                         <h5 class="text-uppercase">Liên kết nhanh</h5>
                         <ul class="list-unstyled">
@@ -45,7 +44,6 @@
                         </ul>
                     </div>
 
-                    <!-- Cột 3 - Theo dõi chúng tôi -->
                     <div class="col-md-3 mb-4">
                         <h5 class="text-uppercase">Theo dõi chúng tôi</h5>
                         <ul class="list-unstyled">
@@ -57,7 +55,6 @@
                         </ul>
                     </div>
 
-                    <!-- Cột 4 - Liên hệ -->
                     <div class="col-md-3 mb-4">
                         <h5 class="text-uppercase">Liên hệ</h5>
                         <ul class="list-unstyled">

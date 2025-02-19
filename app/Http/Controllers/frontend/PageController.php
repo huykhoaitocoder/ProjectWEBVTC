@@ -33,11 +33,11 @@ class PageController extends Controller
     }
 
     public function index() {
-        $topApps = App::orderBy('total_downloads', 'DESC')->limit(9)->get();
-        $newApps = App::orderBy('created_at', 'DESC')->limit(9)->get();
-        $freeApps = App::where('price', 0)->orderBy('total_downloads', 'DESC')->limit(9)->get();
-        $paidApps = App::where('price', '>', 0)->orderBy('total_downloads', 'DESC')->limit(9)->get();
-        $topRatedApps = App::orderBy('average_rating', 'DESC')->limit(9)->get();
+        $topApps = App::orderBy('total_downloads', 'DESC')->limit(10)->get();
+        $newApps = App::orderBy('created_at', 'DESC')->limit(10)->get();
+        $freeApps = App::where('price', 0)->orderBy('total_downloads', 'DESC')->limit(10)->get();
+        $paidApps = App::where('price', '>', 0)->orderBy('total_downloads', 'DESC')->limit(10)->get();
+        $topRatedApps = App::orderBy('average_rating', 'DESC')->limit(10)->get();
         $sliders = Slider::where('status', 'active')->orderBy('position', 'ASC')->get();
     
         return view('frontend.pages.home', [

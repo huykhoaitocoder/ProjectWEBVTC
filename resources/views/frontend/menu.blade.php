@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">
+    <div class="container-fluid px-3">
+        <a class="navbar-brand me-auto" href="/">
             <img src="{{ asset('images/logo.png') }}" alt="APKRebel" width="150">
         </a>
 
