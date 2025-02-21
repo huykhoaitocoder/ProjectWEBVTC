@@ -1,5 +1,5 @@
 body {
-    padding-top: 76px; 
+    padding-top: 85px; 
 }
 
 
@@ -17,6 +17,18 @@ body {
 }
 .search-box {
     width: 300px;
+}
+
+#search-form input {
+    height: 38px;
+}
+
+.notification-container .nav-link i {
+    font-size: 20px;
+}
+
+#search-form {
+    margin-top: 10px; 
 }
 
 .card img {
@@ -209,5 +221,30 @@ body.login-page {
     cursor: pointer;
 }
 
+.notification-container {
+    position: relative;
+}
+
+.notification-dropdown {
+    display: none;
+    min-width: 250px;
+    max-height: 400px;
+    overflow-y: auto;
+    right: 0;
+    z-index: 1050;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.notification-container:hover .notification-dropdown {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-trigger {
+    cursor: pointer;
+}
 
   

@@ -8,7 +8,7 @@
     <link rel="canonical" href="{{ $seoData['canonical'] }}">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-yRMo54Xy7gRpaKEgwKWiEAbJ3qRwKPumHibthA4n1jMv6+V6uLSEKElRz0LRP6JtRUtjUJz6HtjXpMOvhyVTfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-x..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>

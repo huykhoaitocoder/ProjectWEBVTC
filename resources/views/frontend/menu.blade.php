@@ -21,6 +21,30 @@
                 <button id="search-icon" class="btn btn-outline-success ms-2" type="submit">Tìm</button>
             </form>
 
+            @auth
+                <div class="notification-container position-relative">
+                    <a class="nav-link position-relative notification-trigger" href="#">
+                        <i class="fa-solid fa-bell"></i>
+                        @if(auth()->user()->unreadNotifications()->count())
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ auth()->user()->unreadNotifications()->count() }}
+                            </span>
+                        @endif
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end notification-dropdown">
+                        @foreach(auth()->user()->notifications()->latest()->take(5)->get() as $notification)
+                            <li>
+                                <a class="dropdown-item {{ $notification->is_read ? '' : 'fw-bold' }}" href="{{ route('notifications.read', $notification->id) }}">
+                                    {{ $notification->title }}
+                                </a>
+                            </li>
+                        @endforeach
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ route('notifications.index') }}">Xem tất cả</a></li>
+                    </ul>
+                </div>
+            @endauth
+
             <div class="navbar-user ms-3 position-relative">
                 @auth
                     <div class="user-dropdown">

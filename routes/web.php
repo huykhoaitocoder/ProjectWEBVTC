@@ -5,6 +5,7 @@ use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\frontend\AppController;
 use App\Http\Controllers\frontend\PageController;
 use App\Http\Controllers\frontend\auth\LoginController;
+use App\Http\Controllers\backend\NotificationController;
 use App\Http\Controllers\backend\file\APKUploadController;
 use App\Http\Controllers\frontend\auth\RegisterController;
 use App\Http\Controllers\backend\file\ImageUploadController;
@@ -33,6 +34,11 @@ Route::post('/admin', [UserController::class, 'postLogin']);
 
 Route::get('/search', [AppController::class, 'search'])->name('search');
 Route::get('/search/load-more', [AppController::class, 'loadMore'])->name('search.loadMore');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+});
 
 Route::get('/app/{id}', [AppController::class, 'show'])->name('app.details');
 
