@@ -8,12 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class App extends Model
 {
     use HasFactory;
-    // public $timestamps = false;
+    
     protected $table = 'apps';
 
     public function category()
     {
-        // belongsTo ho biết mỗi ứng dụng (app) thuộc về một danh mục (category)
         return $this->belongsTo(Category::class);
+    }
+
+    public function developer()
+    {
+        return $this->belongsTo(Developer::class, 'developer_id');
+    }
+
+    public function downloads()
+    {
+        return $this->hasMany(Download::class);
     }
 }

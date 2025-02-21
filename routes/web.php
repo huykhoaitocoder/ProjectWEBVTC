@@ -1,21 +1,38 @@
 <?php
 
-use App\Http\Controllers\backend\file\APKUploadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\frontend\AppController;
 use App\Http\Controllers\frontend\PageController;
-use App\Http\Controllers\frontend\CustomerController;
+use App\Http\Controllers\frontend\auth\LoginController;
+use App\Http\Controllers\backend\file\APKUploadController;
+use App\Http\Controllers\frontend\auth\RegisterController;
 use App\Http\Controllers\backend\file\ImageUploadController;
 use App\Http\Controllers\backend\file\VideoUploadController;
+use App\Http\Controllers\frontend\auth\ResetPasswordController;
+use App\Http\Controllers\frontend\auth\ForgotPasswordController;
 
 Route::get('/', [PageController::class, 'index']);
 // Route::get('/home', [PageController::class, 'index']);
 
-Route::get('/login', [CustomerController::class, 'index']);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/auth/google', [LoginController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/admin', [UserController::class, 'getLogin']);
 Route::post('/admin', [UserController::class, 'postLogin']);
+
+Route::get('/search', [AppController::class, 'search'])->name('search');
+Route::get('/search/load-more', [AppController::class, 'loadMore'])->name('search.loadMore');
 
 Route::get('/app/{id}', [AppController::class, 'show'])->name('app.details');
 

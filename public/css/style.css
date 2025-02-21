@@ -185,4 +185,29 @@ body.login-page {
     font-weight: 600;
     margin-top: 20px;
   }
+
+  .user-dropdown {
+    position: relative;
+}
+
+.user-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 110%;
+    width: 200px;
+    border-radius: 10px;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.user-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.user-avatar {
+    cursor: pointer;
+}
+
+
   

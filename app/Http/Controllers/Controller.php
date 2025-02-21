@@ -10,11 +10,4 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
-
-    public function __construct(){
-        $categories = Category::where('status', 'active')->get();
-
-        // Lấy thông tin người dùng nếu đang đăng nhập
-        // $user = auth()->user();
-    }
 }

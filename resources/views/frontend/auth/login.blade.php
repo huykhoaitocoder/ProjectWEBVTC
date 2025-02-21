@@ -7,14 +7,33 @@
             Chào mừng đến với <span style="color: #1b5e20;">APKRebel Play</span>
         </h3>
 
-        <button class="btn w-100 mb-4 text-white" style="background-color: #0f9d58; font-weight: 500;">
+        @if (session('success'))
+            <div class="alert alert-success mt-3">{{ session('success') }}</div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger mt-3">{{ session('error') }}</div>
+        @endif
+
+
+        <a href="/auth/google" class="btn w-100 mb-4 text-white" style="background-color: #0f9d58; font-weight: 500;">
             <i class="fa-brands fa-google me-2"></i> Đăng nhập với Google
-        </button>
+        </a>
 
         <div class="text-center text-muted">hoặc</div>
 
         <form method="POST" action="/login">
             @csrf
+
+            @if ($errors->any())
+                <div class="alert alert-danger mt-3">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="form-group mt-3">
                 <input type="email" name="user_email" class="form-control" placeholder="Email" required>
             </div>
@@ -32,6 +51,10 @@
             </div>
 
             <button type="submit" class="btn w-100 mt-4 text-white" style="background-color: #0f9d58; font-weight: 600;">Đăng nhập</button>
+
+            <div class="text-center mt-2">
+                <a href="/forgot-password" class="text-success" style="font-weight: 500;">Quên mật khẩu?</a>
+            </div>
         </form>
 
         <div class="text-center mt-4">
