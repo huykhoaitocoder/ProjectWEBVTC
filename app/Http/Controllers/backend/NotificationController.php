@@ -11,7 +11,7 @@ class NotificationController extends Controller
     public function __construct(){
         $seoData = [
             'title' => 'Thông báo',
-            'canonical' => url('/notifications')
+            'canonical' => url()->current()
         ];
 
         view()->share([

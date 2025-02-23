@@ -8,7 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PageController extends Controller
+class HomeController extends Controller
 {
     public function __construct(){
         $categories = Category::where('status', 'active')->get();
@@ -29,11 +29,11 @@ class PageController extends Controller
     }
 
     public function index() {
-        $topApps = App::orderBy('total_downloads', 'DESC')->limit(10)->get();
-        $newApps = App::orderBy('created_at', 'DESC')->limit(10)->get();
-        $freeApps = App::where('price', 0)->orderBy('total_downloads', 'DESC')->limit(10)->get();
-        $paidApps = App::where('price', '>', 0)->orderBy('total_downloads', 'DESC')->limit(10)->get();
-        $topRatedApps = App::orderBy('average_rating', 'DESC')->limit(10)->get();
+        $topApps = App::orderBy('total_downloads', 'DESC')->limit(8)->get();
+        $newApps = App::orderBy('created_at', 'DESC')->limit(8)->get();
+        $freeApps = App::where('price', 0)->orderBy('total_downloads', 'DESC')->limit(8)->get();
+        $paidApps = App::where('price', '>', 0)->orderBy('total_downloads', 'DESC')->limit(8)->get();
+        $topRatedApps = App::orderBy('average_rating', 'DESC')->limit(8)->get();
         $sliders = Slider::where('status', 'active')->orderBy('position', 'ASC')->get();
     
         return view('frontend.pages.home', [

@@ -1,7 +1,7 @@
 body {
-    padding-top: 85px; 
+    padding-top: 90px; 
+    font-family: 'Roboto', sans-serif;
 }
-
 
 .container {
     max-width: 100%; 
@@ -12,9 +12,17 @@ body {
 .navbar {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .navbar-brand img {
-    height: 40px; 
+    height: 50px;
 }
+
+.nav-link.active {
+    font-weight: bold;
+    color: #17f393 !important;
+    border-bottom: 3x solid #007bff; 
+}
+
 .search-box {
     width: 300px;
 }
@@ -24,7 +32,7 @@ body {
 }
 
 .notification-container .nav-link i {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 #search-form {
@@ -73,20 +81,20 @@ body {
 .app-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 15px;
 }
 
 .app-item {
-    width: 120px;
+    width: clamp(145px, 20vw, 203px);
     text-align: left;
-    padding: 8px;
+    padding: 10px;
     border-radius: 10px;
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .app-item:hover {
-    background: rgba(63, 66, 68, 0.1); 
+    background: rgba(92, 96, 98, 0.1); 
     transform: scale(1.05); 
 }
 
@@ -98,26 +106,35 @@ body {
 
 .app-item img {
     width: 100%;
-    max-width: 120px;
     height: auto;
-    border-radius: 20px;
+    border-radius: 30px;
     display: block;
 }
 
 .app-name {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
-    color: #555; /* Màu nhạt hơn */
-    margin-top: 5px;
+    color: #555; 
+    margin-top: 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.app-rating {
+.app-category {
     font-size: 14px;
-    color: #FFD700; /* Màu vàng */
-    margin-top: -3px; /* Dịch sát lên trên */
+    color: #555;
+    font-weight: 500;
+    background-color: #f0f0f0;
+    padding: 4px 8px;
+    border-radius: 8px;
+    display: inline-block;
+} 
+
+.app-rating {
+    font-size: 18px;
+    color: #eacd29; 
+    margin-top: -10px; 
     display: flex;
     align-items: center;
 }
@@ -135,9 +152,9 @@ body.login-page {
     align-items: center;
     overflow: hidden;
     position: relative;
-  }
+}
   
-  body.login-page::before {
+body.login-page::before {
     content: "";
     position: absolute;
     top: 0;
@@ -149,56 +166,56 @@ body.login-page {
     opacity: 0.3;
     animation: wave 10s infinite linear;
     z-index: -1;
-  }
+}
   
-  @keyframes wave {
+@keyframes wave {
     0% {
-      background-position-x: 0;
+        background-position-x: 0;
     }
     100% {
-      background-position-x: 1000px;
+        background-position-x: 1000px;
     }
-  }
+}
   
-  .login-container {
+.login-container {
     width: 100%;
     max-width: 450px;
     padding: 30px;
     background-color: #f1f1f1;
     border-radius: 20px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  }
+}
   
-  .login-container h3 {
+.login-container h3 {
     color: #2e7d32;
     font-weight: 600;
     text-align: center;
     margin-bottom: 20px;
-  }
+}
   
-  .login-container .btn-google {
+.login-container .btn-google {
     background-color: #0f9d58;
     color: #fff;
     font-weight: 500;
-  }
+}
   
-  .login-container .btn-google i {
+.login-container .btn-google i {
     margin-right: 8px;
-  }
+}
   
-  .login-container .form-check-label a {
+.login-container .form-check-label a {
     color: #2e7d32;
     font-weight: 500;
-  }
+}
   
-  .login-container .btn-submit {
+.login-container .btn-submit {
     background-color: #0f9d58;
     color: #fff;
     font-weight: 600;
     margin-top: 20px;
-  }
+}
 
-  .user-dropdown {
+.user-dropdown {
     position: relative;
 }
 
@@ -223,6 +240,8 @@ body.login-page {
 
 .notification-container {
     position: relative;
+    right: -8;
+    color: #6a6969;
 }
 
 .notification-dropdown {
@@ -246,5 +265,109 @@ body.login-page {
 .notification-trigger {
     cursor: pointer;
 }
+/* view game */
+.game-carousel-container {
+    margin: 30px 0;
+}
 
-  
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.game-carousel {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.game-card {
+    position: relative;
+    width: 400px;
+    height: 250px;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.game-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    border-radius: 15px;
+    z-index: 1;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    z-index: 2;
+}
+
+.game-info {
+    position: relative;
+    z-index: 2;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.game-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.game-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+}
+
+.developer, .age-rating {
+    font-size: 12px;
+    display: block;
+    opacity: 0.9;
+}
+
+.install-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: black;
+    border: none;
+    padding: 5px 15px;
+    font-size: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.install-btn:hover {
+    background: rgba(255, 255, 255, 1);
+}

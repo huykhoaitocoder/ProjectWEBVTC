@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 21, 2025 lúc 05:13 PM
+-- Thời gian đã tạo: Th2 23, 2025 lúc 03:04 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -118,7 +118,17 @@ INSERT INTO `apps` (`id`, `developer_id`, `category_id`, `name`, `description`, 
 (25, 7, 4, 'Stock Monitor', 'Theo dõi chứng khoán miễn phí', 'com.example.stockmonitor', 0.00, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5jbGFzaG9mY2xhbnNfaWNvbl8xNjY1ODMxNTAzXzAyMw/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 7000, 4.10, '2025-02-18 12:50:24'),
 (26, 8, 5, 'Secure Messenger', 'Nhắn tin bảo mật miễn phí', 'com.example.securemsg', 0.00, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5jbGFzaG9mY2xhbnNfaWNvbl8xNjY1ODMxNTAzXzAyMw/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 14000, 4.90, '2025-02-18 12:50:24'),
 (27, 9, 1, 'Travel Guide Free', 'Hướng dẫn du lịch miễn phí', 'com.example.travelguidefree', 0.00, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5jbGFzaG9mY2xhbnNfaWNvbl8xNjY1ODMxNTAzXzAyMw/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 6000, 4.30, '2025-02-18 12:50:24'),
-(28, 10, 2, 'Learn Languages', 'Ứng dụng học ngôn ngữ miễn phí', 'com.example.learnlanguages', 0.00, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5jbGFzaG9mY2xhbnNfaWNvbl8xNjY1ODMxNTAzXzAyMw/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 17000, 4.70, '2025-02-18 12:50:24');
+(28, 10, 2, 'Learn Languages', 'Ứng dụng học ngôn ngữ miễn phí', 'com.example.learnlanguages', 0.00, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5jbGFzaG9mY2xhbnNfaWNvbl8xNjY1ODMxNTAzXzAyMw/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 17000, 4.70, '2025-02-18 12:50:24'),
+(29, 1, 7, 'Game Hành Động', 'Game hành động kịch tính.', 'com.game.action', 0.00, 'https://image.winudf.com/v2/image1/Y29tLm1pSG9Zby5HZW5zaGluSW1wYWN0X2ljb25fMTY0NDk2ODU0Ml8wNTc/icon.webp?w=160&fakeurl=1&type=.webp', 'approved', 50000, 4.50, '2025-02-22 12:37:03'),
+(30, 2, 33, 'Game Phiêu Lưu', 'Khám phá thế giới kỳ bí.', 'com.game.adventure', 0.00, 'https://image.winudf.com/v2/image1/ZXMuc29jaWFscG9pbnQuRHJhZ29uQ2l0eV9pY29uXzE3Mjg5OTkzMjhfMDI4/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 30000, 4.20, '2025-02-22 12:37:03'),
+(31, 3, 34, 'Game Đua Xe', 'Đua xe tốc độ cao.', 'com.game.racing', 0.00, 'https://image.winudf.com/v2/image1/dm4uY29yb2NodGkucmV0dXJudG9jaGlsZGhvb2RfaWNvbl8xNzM3NTkzNjA3XzAzMA/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 45000, 4.70, '2025-02-22 12:37:03'),
+(32, 4, 35, 'Game Bắn Súng', 'Trận chiến súng đỉnh cao.', 'com.game.shooting', 0.00, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5oYXlkYXlfaWNvbl8xNjgwNDQyNjk4XzA4MQ/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 60000, 4.40, '2025-02-22 12:37:03'),
+(33, 5, 36, 'Game Xếp Hình', 'Trò chơi trí tuệ.', 'com.game.puzzle', 0.00, 'https://image.winudf.com/v2/image1/Y29tLmNoaWxseXJvb20uc291bGtuaWdodHByZXF1ZWxfaWNvbl8xNzM3NDI3MzI0XzA0NQ/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 25000, 4.10, '2025-02-22 12:37:03'),
+(34, 6, 37, 'Game Thể Thao', 'Chơi thể thao mọi lúc.', 'com.game.sports', 0.00, 'https://image.winudf.com/v2/image1/Y29tLmVhLmdhbWUucHZ6Ml9yb3dfaWNvbl8xNzM3Mzk3NDE3XzA2MQ/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 40000, 4.60, '2025-02-22 12:37:03'),
+(35, 7, 38, 'Game Chiến Thuật', 'Xây dựng chiến thuật độc đáo.', 'com.game.strategy', 0.00, 'https://image.winudf.com/v2/image1/ZXMuc29jaWFscG9pbnQuRHJhZ29uQ2l0eV9pY29uXzE3Mjg5OTkzMjhfMDI4/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 35000, 4.30, '2025-02-22 12:37:03'),
+(36, 8, 39, 'Game Âm Nhạc', 'Hòa mình vào âm nhạc.', 'com.game.music', 0.00, 'https://image.winudf.com/v2/image1/dm4uY29yb2NodGkucmV0dXJudG9jaGlsZGhvb2RfaWNvbl8xNzM3NTkzNjA3XzAzMA/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 20000, 4.00, '2025-02-22 12:37:03'),
+(37, 9, 40, 'Game Kinh Dị', 'Trải nghiệm kinh dị rùng rợn.', 'com.game.horror', 0.00, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5oYXlkYXlfaWNvbl8xNjgwNDQyNjk4XzA4MQ/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 15000, 3.80, '2025-02-22 12:37:03'),
+(38, 10, 41, 'Game Mô Phỏng', 'Trò chơi mô phỏng chân thật.', 'com.game.simulation', 0.00, 'https://image.winudf.com/v2/image1/Y29tLmNoaWxseXJvb20uc291bGtuaWdodHByZXF1ZWxfaWNvbl8xNzM3NDI3MzI0XzA0NQ/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 22000, 4.20, '2025-02-22 12:37:03');
 
 -- --------------------------------------------------------
 
@@ -727,6 +737,13 @@ CREATE TABLE `screenshots` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `screenshots`
+--
+
+INSERT INTO `screenshots` (`id`, `app_id`, `image_url`, `created_at`) VALUES
+(1, 34, 'https://i.ibb.co/1JJnpXP9/unnamed.webp', '2025-02-23 13:40:30');
+
 -- --------------------------------------------------------
 
 --
@@ -764,7 +781,7 @@ CREATE TABLE `sliders` (
 INSERT INTO `sliders` (`id`, `title`, `image`, `link`, `position`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Game Hot Nhất', 'https://i.ibb.co/VppvJ4sN/nh-ch-p-m-n-h-nh-2025-02-19-040410.png', 'https://example.com/game-hot', 1, 'active', '2025-02-17 20:24:36', '2025-02-19 06:26:41'),
 (2, 'Ứng Dụng Mới', 'https://i.ibb.co/8LGSZsvS/nh-ch-p-m-n-h-nh-2025-02-19-040711.png', 'https://example.com/ung-dung-moi', 2, 'active', '2025-02-17 20:24:36', '2025-02-19 06:27:43'),
-(3, 'Ứng Dụng Hot', 'https://i.ibb.co/VppvJ4sN/nh-ch-p-m-n-h-nh-2025-02-19-040410.png', 'https://example.com/ung-dung-moi', 3, 'active', '2025-02-17 20:24:36', '2025-02-19 06:26:55');
+(3, 'Ứng Dụng Hot', 'https://img.upanh.tv/2025/02/22/nh-chp-man-hinh-2025-02-22-152207.png', 'https://example.com/ung-dung-moi', 3, 'active', '2025-02-17 20:24:36', '2025-02-22 09:35:41');
 
 -- --------------------------------------------------------
 
@@ -1127,7 +1144,7 @@ ALTER TABLE `api_keys`
 -- AUTO_INCREMENT cho bảng `apps`
 --
 ALTER TABLE `apps`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT cho bảng `app_permissions`
@@ -1307,7 +1324,7 @@ ALTER TABLE `role_permissions`
 -- AUTO_INCREMENT cho bảng `screenshots`
 --
 ALTER TABLE `screenshots`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `settings`

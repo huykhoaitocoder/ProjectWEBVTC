@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
     <div class="container-fluid px-3">
         <a class="navbar-brand me-auto" href="/">
-            <img src="{{ asset('images/logo.png') }}" alt="APKRebel" width="150">
+            <img src="{{ asset('images/logo.png') }}" alt="VHAPK" width="150">
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -10,10 +10,11 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto" id="menu-items">
-                <li class="nav-item"><a class="nav-link active" href="/">Trang Chủ</a></li>
-                <li class="nav-item"><a class="nav-link" href="/apps">Ứng Dụng</a></li>
-                <li class="nav-item"><a class="nav-link" href="/games">Trò Chơi</a></li>
-                <li class="nav-item"><a class="nav-link" href="/mods">Bản Mod</a></li>
+                <li class="nav-item"><a class="nav-link {{ Request::is('/apps') ? 'active' : '' }}" href="/apps">Ứng Dụng</a></li>
+                <li class="nav-item"><a class="nav-link {{ Request::is('/games') ? 'active' : '' }}" href="/games">Trò Chơi</a></li>
+                <li class="nav-item"><a class="nav-link {{ Request::is('/windows') ? 'active' : '' }}" href="/windows">Windows</a></li>
+                <li class="nav-item"><a class="nav-link {{ Request::is('/tools') ? 'active' : '' }}" href="/tools">Công Cụ</a></li>
+                <li class="nav-item"><a class="nav-link {{ Request::is('/webs') ? 'active' : '' }}" href="/webs">Trang Web</a></li>
             </ul>
 
             <form class="d-flex ms-3" id="search-form" method="GET" action="/search"> 

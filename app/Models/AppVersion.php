@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Developer extends Model
+class AppVersion extends Model
 {
     use HasFactory;
 
-    protected $table = 'developers';
-
-    public function apps()
+    public function app()
     {
-        return $this->hasMany(App::class);
-    }    
+        return $this->belongsTo(App::class);
+    }
 }

@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\frontend\AppController;
-use App\Http\Controllers\frontend\PageController;
+use App\Http\Controllers\frontend\HomeController;
+use App\Http\Controllers\frontend\ReportController;
+use App\Http\Controllers\frontend\CategoryController;
 use App\Http\Controllers\frontend\auth\LoginController;
 use App\Http\Controllers\backend\NotificationController;
 use App\Http\Controllers\backend\file\APKUploadController;
@@ -13,8 +15,8 @@ use App\Http\Controllers\backend\file\VideoUploadController;
 use App\Http\Controllers\frontend\auth\ResetPasswordController;
 use App\Http\Controllers\frontend\auth\ForgotPasswordController;
 
-Route::get('/', [PageController::class, 'index']);
-// Route::get('/home', [PageController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
+// Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -41,6 +43,16 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/app/{id}', [AppController::class, 'show'])->name('app.details');
+
+Route::resource('categories', CategoryController::class)
+    ->names('frontend.categories');
+
+Route::post('/report', [ReportController::class, 'store'])
+    ->name('frontend.report');
+
+
+Route::get('/{type}', [AppController::class, 'index'])
+    ->where('type', 'apps|games|windows'); 
 
 Route::get('/upload-image', [ImageUploadController::class, 'uploadForm'])->name('image.form');
 Route::post('/upload-image', [ImageUploadController::class, 'uploadImages'])->name('image.upload');

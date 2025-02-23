@@ -25,4 +25,17 @@ class App extends Model
     {
         return $this->hasMany(Download::class);
     }
+
+    public function screenshots() {
+        return $this->hasMany(Screenshot::class);
+    }
+    
+    public function versions() {
+        return $this->hasMany(AppVersion::class)->orderByDesc('version_code');
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
 }
