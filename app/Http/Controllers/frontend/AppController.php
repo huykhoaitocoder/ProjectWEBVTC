@@ -32,14 +32,32 @@ class AppController extends Controller
     }      
 
     public function show($id) {
-        $app = App::with(['developer', 'category', 'screenshots', 'versions'])->findOrFail($id);
+        $app = App::with([
+            'developer',
+            'category',
+            'screenshots',
+            'versions',
+            'reviews' => function ($query) {
+                $query->whereNull('deleted_at');
+            }
+        ])->findOrFail($id);
+
+        $similarApps = $this->suggestSimilarApps($id);
+
+        $userHasPurchased = null;
+        $userReview = null;
+
+        if (auth()->check()) {
+            $userHasPurchased = auth()->user()->purchases()->where('app_id', $id)->exists();
+            $userReview = $app->reviews->where('user_id', auth()->id())->first();
+        }
     
         $seoData = [
             'title' => $app->name . ' - Ứng dụng',
             'canonical' => url('/apps/' . $id),
         ];
     
-        return view('frontend.apps.details', compact('app', 'seoData'));
+        return view('frontend.apps.details', compact('app', 'userHasPurchased', 'userReview', 'similarApps', 'seoData'));
     }    
 
     public function search(Request $request)
@@ -85,5 +103,24 @@ class AppController extends Controller
                     ->get();
 
         return response()->json($apps);
+    }
+
+    public function suggestSimilarApps($appId)
+    {
+        $app = App::findOrFail($appId);
+
+        $similarApps = App::where('id', '!=', $app->id)
+            ->where(function ($query) use ($app) {
+                $query->where('category_id', $app->category_id)
+                    ->orWhere('developer_id', $app->developer_id) 
+                    ->orWhere('name', 'LIKE', '%' . $app->name . '%') 
+                    ->orWhere('description', 'LIKE', '%' . $app->name . '%');
+            })
+            ->orderByDesc('total_downloads') 
+            ->orderByDesc('average_rating') 
+            ->limit(10)
+            ->get();
+
+        return $similarApps;
     }
 }

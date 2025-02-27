@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class RegisterController extends Controller
 {
     public function __construct(){
-        $seoData['title'] = "Đăng ký tài khoản cho Cửa hàng ứng dụng APKRebel Play";
+        $seoData['title'] = "Đăng ký tài khoản cho Cửa hàng ứng dụng VH APK";
         $seoData['canonical'] = url('/register');
         
         $this->middleware('guest');
@@ -30,7 +30,7 @@ class RegisterController extends Controller
             'name' => 'required|string|min:2|max:100',
             'email' => 'required|email:rfc,dns|max:50|unique:users,email',
             'password' => 'required|min:6|max:20',
-            'password_confirmation' => 'required|same:user_password',
+            'password_confirmation' => 'required|same:password',
         ],[
             'name.required' => 'Họ tên không được để trống',
             'email.required' => 'Email không được để trống',

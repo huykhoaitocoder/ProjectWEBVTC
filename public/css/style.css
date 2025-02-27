@@ -371,3 +371,11 @@ body.login-page::before {
 .install-btn:hover {
     background: rgba(255, 255, 255, 1);
 }
+
+.rating-summary .progress {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+.progress-bar {
+    border-radius: 5px;
+}

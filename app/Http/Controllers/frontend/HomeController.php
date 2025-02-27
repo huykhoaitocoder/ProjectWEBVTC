@@ -17,7 +17,7 @@ class HomeController extends Controller
         // $user = auth()->user();
 
         $seoData = [
-            'title' => 'APKRebel Play - Kho ứng dụng',
+            'title' => 'VH APK - Kho ứng dụng',
             'canonical' => url('/')
         ];
 

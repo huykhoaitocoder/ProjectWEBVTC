@@ -43,7 +43,12 @@ class User extends Authenticatable
 
     // public function favorites() {
     //     return $this->belongsToMany(App::class, 'favorites', 'user_id', 'app_id')->withTimestamps();
-    // }    
+    // }   
+    
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 
     public function reports()
     {

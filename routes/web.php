@@ -5,6 +5,7 @@ use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\frontend\AppController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\ReportController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\frontend\CategoryController;
 use App\Http\Controllers\frontend\auth\LoginController;
 use App\Http\Controllers\backend\NotificationController;
@@ -47,9 +48,19 @@ Route::get('/app/{id}', [AppController::class, 'show'])->name('app.details');
 Route::resource('categories', CategoryController::class)
     ->names('frontend.categories');
 
+Route::prefix('apps/{app}')->group(function () {
+    Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index'); // Hiển thị tất cả đánh giá
+    Route::post('reviews', [ReviewController::class, 'store'])->middleware('auth')->name('reviews.store'); // Lưu đánh giá
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::put('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+});
+
 Route::post('/report', [ReportController::class, 'store'])
     ->name('frontend.report');
-
 
 Route::get('/{type}', [AppController::class, 'index'])
     ->where('type', 'apps|games|windows'); 

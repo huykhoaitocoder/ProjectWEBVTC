@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 23, 2025 lúc 03:04 PM
+-- Thời gian đã tạo: Th2 25, 2025 lúc 01:17 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -122,7 +122,7 @@ INSERT INTO `apps` (`id`, `developer_id`, `category_id`, `name`, `description`, 
 (29, 1, 7, 'Game Hành Động', 'Game hành động kịch tính.', 'com.game.action', 0.00, 'https://image.winudf.com/v2/image1/Y29tLm1pSG9Zby5HZW5zaGluSW1wYWN0X2ljb25fMTY0NDk2ODU0Ml8wNTc/icon.webp?w=160&fakeurl=1&type=.webp', 'approved', 50000, 4.50, '2025-02-22 12:37:03'),
 (30, 2, 33, 'Game Phiêu Lưu', 'Khám phá thế giới kỳ bí.', 'com.game.adventure', 0.00, 'https://image.winudf.com/v2/image1/ZXMuc29jaWFscG9pbnQuRHJhZ29uQ2l0eV9pY29uXzE3Mjg5OTkzMjhfMDI4/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 30000, 4.20, '2025-02-22 12:37:03'),
 (31, 3, 34, 'Game Đua Xe', 'Đua xe tốc độ cao.', 'com.game.racing', 0.00, 'https://image.winudf.com/v2/image1/dm4uY29yb2NodGkucmV0dXJudG9jaGlsZGhvb2RfaWNvbl8xNzM3NTkzNjA3XzAzMA/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 45000, 4.70, '2025-02-22 12:37:03'),
-(32, 4, 35, 'Game Bắn Súng', 'Trận chiến súng đỉnh cao.', 'com.game.shooting', 0.00, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5oYXlkYXlfaWNvbl8xNjgwNDQyNjk4XzA4MQ/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 60000, 4.40, '2025-02-22 12:37:03'),
+(32, 4, 35, 'Chicken', 'Trận chiến súng đỉnh cao.', 'com.game.shooting', 0.00, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5oYXlkYXlfaWNvbl8xNjgwNDQyNjk4XzA4MQ/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 60000, 4.40, '2025-02-22 12:37:03'),
 (33, 5, 36, 'Game Xếp Hình', 'Trò chơi trí tuệ.', 'com.game.puzzle', 0.00, 'https://image.winudf.com/v2/image1/Y29tLmNoaWxseXJvb20uc291bGtuaWdodHByZXF1ZWxfaWNvbl8xNzM3NDI3MzI0XzA0NQ/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 25000, 4.10, '2025-02-22 12:37:03'),
 (34, 6, 37, 'Game Thể Thao', 'Chơi thể thao mọi lúc.', 'com.game.sports', 0.00, 'https://image.winudf.com/v2/image1/Y29tLmVhLmdhbWUucHZ6Ml9yb3dfaWNvbl8xNzM3Mzk3NDE3XzA2MQ/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 40000, 4.60, '2025-02-22 12:37:03'),
 (35, 7, 38, 'Game Chiến Thuật', 'Xây dựng chiến thuật độc đáo.', 'com.game.strategy', 0.00, 'https://image.winudf.com/v2/image1/ZXMuc29jaWFscG9pbnQuRHJhZ29uQ2l0eV9pY29uXzE3Mjg5OTkzMjhfMDI4/icon.webp?w=280&fakeurl=1&type=.webp', 'approved', 35000, 4.30, '2025-02-22 12:37:03'),
@@ -675,13 +675,27 @@ CREATE TABLE `report_reasons` (
 
 CREATE TABLE `reviews` (
   `id` bigint(20) NOT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
-  `app_id` bigint(20) DEFAULT NULL,
-  `rating` int(11) DEFAULT NULL CHECK (`rating` between 1 and 5),
+  `user_id` bigint(20) NOT NULL,
+  `app_id` bigint(20) NOT NULL,
+  `rating` int(11) NOT NULL,
   `comment` text DEFAULT NULL,
-  `status` enum('approved','pending','deleted') DEFAULT 'approved',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `status` enum('approved','pending','deleted') NOT NULL DEFAULT 'approved',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `app_id`, `rating`, `comment`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(12, 1, 31, 5, 'hay', 'approved', '2025-02-24 11:03:22', '2025-02-24 11:30:23', '2025-02-24 11:30:23'),
+(13, 1, 31, 5, 'hay qua', 'approved', '2025-02-24 11:30:43', '2025-02-24 11:31:01', '2025-02-24 11:31:01'),
+(14, 1, 31, 5, NULL, 'approved', '2025-02-24 11:31:09', '2025-02-24 11:32:45', '2025-02-24 11:32:45'),
+(15, 1, 31, 4, 'gffggffdg', 'approved', '2025-02-24 11:32:49', '2025-02-24 11:39:59', NULL),
+(16, 1, 12, 5, 'hay', 'approved', '2025-02-25 00:29:23', '2025-02-25 00:29:23', NULL),
+(17, 4, 12, 3, 'hay nha', 'approved', '2025-02-25 00:36:31', '2025-02-25 00:36:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -742,7 +756,9 @@ CREATE TABLE `screenshots` (
 --
 
 INSERT INTO `screenshots` (`id`, `app_id`, `image_url`, `created_at`) VALUES
-(1, 34, 'https://i.ibb.co/1JJnpXP9/unnamed.webp', '2025-02-23 13:40:30');
+(1, 32, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5oYXlkYXlfc2NyZWVuX3ZpLVZOXzVfMTYxODgzNzQ5OF8wOTA/screen-5.webp?fakeurl=1&type=.webp', '2025-02-23 13:40:30'),
+(2, 32, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5oYXlkYXlfc2NyZWVuX3ZpLVZOXzZfMTYwNjEzODEyMl8wNTE/screen-6.webp?fakeurl=1&type=.webp', '2025-02-24 15:18:59'),
+(3, 32, 'https://image.winudf.com/v2/image1/Y29tLnN1cGVyY2VsbC5oYXlkYXlfc2NyZWVuX3ZpLVZOXzZfMTYwNjEzODEyMl8wNTE/screen-6.webp?fakeurl=1&type=.webp', '2025-02-24 15:20:07');
 
 -- --------------------------------------------------------
 
@@ -840,7 +856,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `avatar`, `role_id`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'jungdani', 'nickycv2004@gmail.com', '$2y$12$k.5VI6rMq8XcRi54N8nV7.M16Ne.Mc4WP4lqAXJCTSDxyZJnrXY.m', NULL, NULL, 'active', '2025-02-20 05:15:24', '2025-02-20 05:15:24'),
 (2, 'jungdanit', 'nickycv2004f@gmail.com', '$2y$12$wk3sjQQzJ7CK9QM86siRUO7WB3nmR8du.XCQAq4c.DXgupM2rKbQ2', NULL, NULL, 'active', '2025-02-20 06:08:02', '2025-02-20 06:08:02'),
-(3, 'jungdanit', 'nickycv200@gmail.com', '$2y$12$bvXDYj5Ej4qlajL6C5m/VuO61ERMwXqID8kOo0T0ZHLVKdXcUNB2K', NULL, NULL, 'active', '2025-02-20 07:36:16', '2025-02-20 07:36:16');
+(3, 'jungdanit', 'nickycv200@gmail.com', '$2y$12$bvXDYj5Ej4qlajL6C5m/VuO61ERMwXqID8kOo0T0ZHLVKdXcUNB2K', NULL, NULL, 'active', '2025-02-20 07:36:16', '2025-02-20 07:36:16'),
+(4, 'Đoàn Kim Ngọc', 'cvnicky369@gmail.com', '$2y$12$eCBwtvWQf3tnEfSPCVXIqO2OiToftpiFd3h2DDCAQS.LWxyk3xRkq', NULL, NULL, 'active', '2025-02-25 00:35:17', '2025-02-25 00:35:17');
 
 -- --------------------------------------------------------
 
@@ -1300,7 +1317,7 @@ ALTER TABLE `report_reasons`
 -- AUTO_INCREMENT cho bảng `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `review_replies`
@@ -1324,7 +1341,7 @@ ALTER TABLE `role_permissions`
 -- AUTO_INCREMENT cho bảng `screenshots`
 --
 ALTER TABLE `screenshots`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `settings`
@@ -1354,7 +1371,7 @@ ALTER TABLE `subscriptions`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `user_profiles`
