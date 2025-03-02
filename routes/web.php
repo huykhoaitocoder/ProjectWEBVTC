@@ -5,7 +5,7 @@ use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\frontend\AppController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\ReportController;
-use App\Http\Controllers\Frontend\ReviewController;
+use App\Http\Controllers\frontend\ReviewController;
 use App\Http\Controllers\frontend\CategoryController;
 use App\Http\Controllers\frontend\auth\LoginController;
 use App\Http\Controllers\backend\NotificationController;
