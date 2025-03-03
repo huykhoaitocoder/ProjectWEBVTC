@@ -350,32 +350,26 @@
         </div>
 
         <div class="similar-games-section">
-            <h2 class="text-2xl font-semibold mb-4">Các trò chơi như {{ $app->name }}</h2>
-            <div class="relative">
-                <div id="similar-games-carousel" class="flex overflow-x-auto gap-4 scroll-smooth pb-2">
-                    @foreach($similarApps as $similarApp)
-                        <div class="min-w-[150px] bg-white rounded-2xl shadow-md p-2 flex-shrink-0 hover:shadow-lg transition duration-300">
-                            <a href="{{ route('app.details', $similarApp->id) }}" class="block text-center">
-                                <img src="{{ $similarApp->icon }}" alt="{{ $similarApp->name }}" class="w-full h-24 object-cover rounded-xl mb-2">
-                                <p class="font-medium text-sm truncate">{{ $similarApp->name }}</p>
-                                <div class="flex items-center justify-center mt-1">
-                                    <span class="text-yellow-500 text-sm">★ {{ number_format($similarApp->average_rating, 1) }}</span>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+            <div class="app-section">
+                <h3 class="mt-4 mb-3">Các trò chơi như {{ $app->name }}</h3>
+                <div class="app-list-container">
+                    <button class="scroll-btn left">&lt;</button> <!-- Nút cuộn trái -->
+                    <div class="app-list">
+                        @foreach($similarApps as $similarApp)
+                            <div class="app-item">
+                                <a href="{{ route('app.details', $similarApp->id) }}">
+                                    <img src="{{ asset($similarApp->icon) }}" alt="{{ $similarApp->name }}" class="app-icon">
+                                    <p class="app-name">{{ $similarApp->name }}</p>
+                                    <p class="app-rating">
+                                        {{ number_format($similarApp->average_rating, 1) }}
+                                        <i class="fa fa-star"></i>
+                                    </p>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                    <button class="scroll-btn right">&gt;</button> <!-- Nút cuộn phải -->
                 </div>
-                <button onclick="scrollCarousel(-1)" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-gray-300 p-1 rounded-full shadow">⬅️</button>
-                <button onclick="scrollCarousel(1)" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-gray-300 p-1 rounded-full shadow">➡️</button>
-            </div>
-
-            <div class="mt-4 flex items-center gap-2">
-                <label class="text-sm">Sắp xếp theo:</label>
-                <select id="sortSelect" onchange="sortSimilarApps()" class="border rounded-lg px-2 py-1 text-sm">
-                    <option value="rating">Đánh giá cao</option>
-                    <option value="downloads">Lượt tải nhiều</option>
-                    <option value="name">Tên (A-Z)</option>
-                </select>
             </div>
         </div>
     </div>
