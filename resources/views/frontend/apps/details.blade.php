@@ -59,13 +59,111 @@
         </div>
     </div>
 
-    <div class="card shadow-lg p-4">        
-        <h4 class="mt-5">Ảnh chụp màn hình</h4>
-        <div class="d-flex overflow-auto gap-3">
+    <div class="p-4 position-relative">
+    <h4 class="text-xl font-semibold mb-4">Ảnh chụp màn hình</h4>
+    <div class="position-relative">
+        <button id="prevBtn" class="position-absolute start-0 top-50 translate-middle-y bg-white border-0 p-2 shadow rounded-circle" 
+                onclick="scrollLeft()" 
+                style="z-index: 10; width: 40px; height: 40px; display: none;">
+            ❮
+        </button>
+        <div id="screenshotContainer" class="d-flex overflow-auto gap-3" 
+             style="scroll-behavior: smooth; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; cursor: grab;">
             @foreach($app->screenshots as $screenshot)
-                <img src="{{ asset($screenshot->image_url) }}" alt="Screenshot" class="rounded">
+                <div class="flex-shrink-0" style="scroll-snap-align: start; width: auto;">
+                    <img src="{{ asset($screenshot->image_url) }}" alt="Screenshot"
+                         class="rounded shadow-lg screenshot" 
+                         style="max-height: 500px; max-width: 100%; object-fit: cover; cursor: pointer;"
+                         onclick="openModal(this.src)">
+                </div>
             @endforeach
         </div>
+        <button id="nextBtn" class="position-absolute end-0 top-50 translate-middle-y bg-white border-0 p-2 shadow rounded-circle" 
+                onclick="scrollRight()" 
+                style="z-index: 10; width: 40px; height: 40px;">
+            ❯
+        </button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="imageModal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8);">
+    <span class="close" onclick="closeModal()" style="position: absolute; top: 20px; right: 35px; color: white; font-size: 40px; cursor: pointer;">&times;</span>
+    <img id="modalImage" class="modal-content" style="margin: auto; display: block; max-width: 90%; max-height: 90%;">
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const container = document.getElementById('screenshotContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        function updateButtons() {
+            prevBtn.style.display = container.scrollLeft > 10 ? 'block' : 'none';
+            nextBtn.style.display = container.scrollLeft + container.clientWidth < container.scrollWidth - 10 ? 'block' : 'none';
+        }
+
+        function scrollLeft() {
+            container.scrollBy({ left: -container.clientWidth, behavior: 'smooth' });
+            setTimeout(updateButtons, 500);
+        }
+
+        function scrollRight() {
+            container.scrollBy({ left: container.clientWidth, behavior: 'smooth' });
+            setTimeout(updateButtons, 500);
+        }
+
+        container.addEventListener('scroll', updateButtons);
+        container.addEventListener('wheel', (event) => {
+            event.preventDefault();
+            container.scrollBy({ left: event.deltaY * 2, behavior: 'smooth' });
+            setTimeout(updateButtons, 500);
+        });
+
+        // Drag scrolling
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+            container.style.cursor = 'grabbing';
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isDown = false;
+            container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('mouseup', () => {
+            isDown = false;
+            container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX) * 2;
+            container.scrollLeft = scrollLeft - walk;
+        });
+
+        window.onload = updateButtons;
+        prevBtn.addEventListener("click", scrollLeft);
+        nextBtn.addEventListener("click", scrollRight);
+    });
+
+    function openModal(src) {
+        document.getElementById("imageModal").style.display = "block";
+        document.getElementById("modalImage").src = src;
+    }
+
+    function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+    }
+</script>
+
 
         <h4>Giới thiệu về {{ $app->name }}</h4>
         <p class="fw-bold">{{ $app->short_description }}</p>

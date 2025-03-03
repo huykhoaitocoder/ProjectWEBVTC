@@ -47,19 +47,45 @@
 
     @foreach($sections as $section)
         @if($section['apps']->count() > 0)
+        <div class="app-section">
             <h3 class="mt-4 mb-3">{{ $section['title'] }}</h3>
-            <div class="app-list">
-                @foreach($section['apps'] as $app)
-                    <div class="app-item">
-                        <a href="{{ route('app.details', $app->id) }}">
-                            <img src="{{ asset($app->icon) }}" alt="{{ $app->name }}" class="app-icon">
-                            <p class="app-name">{{ $app->name }}</p>
-                            <!-- <p class="app-category">{{ $app->category->name }}</p> -->
-                            <p class="app-rating">{{ number_format($app->average_rating, 1) }}<i class="fa fa-star" style="font-size:12px; position: relative; top: -1px;"></i></p>
-                        </a>
-                    </div>
-                @endforeach
+            <div class="app-list-container">
+                <button class="scroll-btn left">&lt;</button> <!-- Nút cuộn trái -->
+                <div class="app-list">
+                    @foreach($topApps as $app)
+                        <div class="app-item">
+                            <a href="{{ route('app.details', $app->id) }}">
+                                <img src="{{ asset($app->icon) }}" alt="{{ $app->name }}" class="app-icon">
+                                <p class="app-name">{{ $app->name }}</p>
+                                <p class="app-rating">
+                                    {{ number_format($app->average_rating, 1) }}
+                                    <i class="fa fa-star"></i>
+                                </p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+                <button class="scroll-btn right">&gt;</button> <!-- Nút cuộn phải -->
             </div>
+        </div>
         @endif
     @endforeach
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const container = document.querySelector(".app-list");
+    const leftBtn = document.querySelector(".scroll-btn.left");
+    const rightBtn = document.querySelector(".scroll-btn.right");
+
+    const scrollAmount = 200; // Số pixel cuộn mỗi lần
+
+    rightBtn.addEventListener("click", () => {
+        container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    });
+
+    leftBtn.addEventListener("click", () => {
+        container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    });
+});
+</script>

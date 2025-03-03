@@ -9,6 +9,10 @@ body {
     padding-right: 7%;
 }
 
+a {
+    text-decoration: none !important;
+}
+
 .navbar {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -78,15 +82,27 @@ body {
     }
 }
 
+.app-list-container {
+    position: relative;
+    overflow: hidden;
+    padding: 10px 0;
+}
+
 .app-list {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-behavior: smooth;
     gap: 15px;
+    padding-bottom: 10px;
+    scrollbar-width: none; /* Ẩn scrollbar trên Firefox */
+}
+
+.app-list::-webkit-scrollbar {
+    display: none; /* Ẩn scrollbar trên Chrome, Safari */
 }
 
 .app-item {
-    width: clamp(145px, 20vw, 203px);
+    flex: 0 0 clamp(145px, 20vw, 203px);
     text-align: left;
     padding: 10px;
     border-radius: 10px;
@@ -98,17 +114,10 @@ body {
     transform: scale(1.05); 
 }
 
-.app-item a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
-
 .app-item img {
     width: 100%;
     height: auto;
     border-radius: 30px;
-    display: block;
 }
 
 .app-name {
@@ -121,16 +130,6 @@ body {
     text-overflow: ellipsis;
 }
 
-.app-category {
-    font-size: 14px;
-    color: #555;
-    font-weight: 500;
-    background-color: #f0f0f0;
-    padding: 4px 8px;
-    border-radius: 8px;
-    display: inline-block;
-} 
-
 .app-rating {
     font-size: 18px;
     color: #eacd29; 
@@ -142,6 +141,46 @@ body {
 .app-rating i {
     margin-left: 2px;
     font-size: 14px;
+}
+
+.app-category {
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+    background-color: #f0f0f0;
+    padding: 4px 8px;
+    border-radius: 8px;
+    display: inline-block;
+} 
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-list-container:hover .scroll-btn {
+    display: flex;
+}
+
+.scroll-btn.left {
+    left: 0;
+}
+
+.scroll-btn.right {
+    right: 0;
 }
 
 body.login-page {
@@ -379,3 +418,4 @@ body.login-page::before {
 .progress-bar {
     border-radius: 5px;
 }
+

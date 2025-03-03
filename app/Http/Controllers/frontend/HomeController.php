@@ -29,11 +29,11 @@ class HomeController extends Controller
     }
 
     public function index() {
-        $topApps = App::orderBy('total_downloads', 'DESC')->limit(8)->get();
-        $newApps = App::orderBy('created_at', 'DESC')->limit(8)->get();
-        $freeApps = App::where('price', 0)->orderBy('total_downloads', 'DESC')->limit(8)->get();
-        $paidApps = App::where('price', '>', 0)->orderBy('total_downloads', 'DESC')->limit(8)->get();
-        $topRatedApps = App::orderBy('average_rating', 'DESC')->limit(8)->get();
+        $topApps = App::orderBy('total_downloads', 'DESC')->limit(25)->get();
+        $newApps = App::orderBy('created_at', 'DESC')->limit(15)->get();
+        $freeApps = App::where('price', 0)->orderBy('total_downloads', 'DESC')->limit(20)->get();
+        $paidApps = App::where('price', '>', 0)->orderBy('total_downloads', 'DESC')->limit(25)->get();
+        $topRatedApps = App::orderBy('average_rating', 'DESC')->limit(30)->get();
         $sliders = Slider::where('status', 'active')->orderBy('position', 'ASC')->get();
     
         return view('frontend.pages.home', [
