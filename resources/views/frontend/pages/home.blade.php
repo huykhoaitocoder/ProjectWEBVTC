@@ -52,7 +52,7 @@
             <div class="app-list-container">
                 <button class="scroll-btn left">&lt;</button> <!-- Nút cuộn trái -->
                 <div class="app-list">
-                    @foreach($topApps as $app)
+                    @foreach($section['apps']  as $app)
                         <div class="app-item">
                             <a href="{{ route('app.details', $app->id) }}">
                                 <img src="{{ asset($app->icon) }}" alt="{{ $app->name }}" class="app-icon">

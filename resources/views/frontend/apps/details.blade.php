@@ -2,11 +2,14 @@
 
 @section('content')
 <div class="container my-5">
-    <div class="row align-items-center">
-        <div class="col-md-2 text-center">
-            <img src="{{ asset($app->icon) }}" alt="{{ $app->name }}" class="img-fluid rounded">
+    <div class="row d-flex align-items-center flex-nowrap">
+        <!-- Ảnh icon -->
+        <div class="col-auto text-center">
+            <img src="{{ asset($app->icon) }}" alt="{{ $app->name }}" class="img-fluid rounded" style="width: 80px; height: 80px;">
         </div>
-        <div class="col-md-7">
+
+        <!-- Thông tin ứng dụng -->
+        <div class="col flex-grow-1">
             <h3 class="fw-bold">{{ $app->name }}</h3>
             <p class="text-muted">{{ $app->developer->name ?? 'Không rõ' }}</p>
             <p class="mb-2">{{ $app->version ?? '1.0.0' }}</p>
@@ -15,49 +18,72 @@
             </h4>
 
             <div class="d-flex align-items-center mb-2">
-                <span class="bg-success me-2">Ứng dụng đáng tin cậy</span>
+                <span class="bg-success px-2 py-1 text-white rounded">Ứng dụng đáng tin cậy</span>
             </div>
         </div>
-        <div class="col-md-3 text-end">
+
+        <!-- Nút tải về trên màn hình lớn (Desktop) -->
+        <div class="col-auto text-end d-md-block d-none">
             @if($app->price > 0)
-                    @if($userHasPurchased)
-                        <a href="#" class="btn btn-lg btn-success w-100">
-                            <i class="bi bi-download"></i> Tải xuống lại
-                        </a>
-                    @else
-                        <a href="#" class="btn btn-lg btn-success w-100">
-                            <i class="bi bi-download"></i> Mua: {{ number_format($app->price, 2) . ' VNĐ' }}
-                        </a>
-                    @endif
+                @if($userHasPurchased)
+                    <a href="#" class="btn btn-lg btn-success">
+                        <i class="bi bi-download"></i> Tải xuống lại
+                    </a>
                 @else
-                    <a href="#" class="btn btn-lg btn-success w-100">
-                        <i class="bi bi-download"></i> Tải về APK
+                    <a href="#" class="btn btn-lg btn-success">
+                        <i class="bi bi-download"></i> Mua: {{ number_format($app->price, 2) . ' VNĐ' }}
                     </a>
                 @endif
+            @else
+                <a href="#" class="btn btn-lg btn-success">
+                    <i class="bi bi-download"></i> Tải về APK
+                </a>
+            @endif
 
-            <div class="d-flex justify-content-around mt-3">
-                <button class="btn btn-light"><i class="bi bi-facebook"></i></button>
-                <button class="btn btn-light"><i class="bi bi-x"></i></button>
-                <button class="btn btn-light"><i class="bi bi-whatsapp"></i></button>
-                <button class="btn btn-light"><i class="bi bi-share"></i></button>
+            <div class="d-flex justify-content-center mt-3">
+                <button class="btn btn-light mx-1"><i class="bi bi-facebook"></i></button>
+                <button class="btn btn-light mx-1"><i class="bi bi-x"></i></button>
+                <button class="btn btn-light mx-1"><i class="bi bi-whatsapp"></i></button>
+                <button class="btn btn-light mx-1"><i class="bi bi-share"></i></button>
             </div>
         </div>
     </div>
 
-    <div class="row text-center mt-4">
-        <div class="col-md-4">
-            <p class="fw-bold mb-0">{{ number_format($app->average_rating, 1) }}<i class="fa fa-star" style="font-size:12px; position: relative; top: -2px; left: 2px"></i></p>
-            <small>{{ $app->reviews_count ?? 0 }} Đánh giá</small>
-        </div>
-        <div class="col-md-4">
-            <p class="fw-bold mb-0">{{ number_format($app->total_downloads) }}</p>
-            <small>Lượt tải xuống</small>
-        </div>
-        <div class="col-md-4">
-            <p class="fw-bold mb-0">Android {{ $app->min_android_version ?? '7.0+' }}</p>
-            <small>Android OS</small>
-        </div>
+    <!-- Nút tải về trên màn hình nhỏ (Mobile) -->
+    <div class="text-center mt-3 d-md-none d-block">
+        @if($app->price > 0)
+            @if($userHasPurchased)
+                <a href="#" class="btn btn-lg btn-success w-100">
+                    <i class="bi bi-download"></i> Tải xuống lại
+                </a>
+            @else
+                <a href="#" class="btn btn-lg btn-success w-100">
+                    <i class="bi bi-download"></i> Mua: {{ number_format($app->price, 2) . ' VNĐ' }}
+                </a>
+            @endif
+        @else
+            <a href="#" class="btn btn-lg btn-success w-100">
+                <i class="bi bi-download"></i> Tải về APK
+            </a>
+        @endif
     </div>
+
+
+
+<div class="row d-flex justify-content-between mt-4">
+    <div class="col-4 flex-grow-1 text-center">
+        <p class="fw-bold mb-0">{{ number_format($app->average_rating, 1) }}<i class="fa fa-star" style="font-size:12px; position: relative; top: -2px; left: 2px"></i></p>
+        <small>{{ $app->reviews_count ?? 0 }} Đánh giá</small>
+    </div>
+    <div class="col-4 flex-grow-1 text-center">
+        <p class="fw-bold mb-0">{{ number_format($app->total_downloads) }}</p>
+        <small>Lượt tải xuống</small>
+    </div>
+    <div class="col-4 flex-grow-1 text-center">
+        <p class="fw-bold mb-0">Android {{ $app->min_android_version ?? '7.0+' }}</p>
+        <small>Android OS</small>
+    </div>
+</div>
 
     <div class="p-4 position-relative">
     <h4 class="text-xl font-semibold mb-4">Ảnh chụp màn hình</h4>
