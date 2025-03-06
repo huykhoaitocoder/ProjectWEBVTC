@@ -9,7 +9,20 @@ class Developer extends Model
 {
     use HasFactory;
 
-    protected $table = 'developers';
+    protected $fillable = [
+        'user_id', 
+        'name',          
+        'email',        
+        'phone',         
+        'address',       
+        'website',       
+        'status'         
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function apps()
     {

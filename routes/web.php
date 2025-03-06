@@ -6,6 +6,7 @@ use App\Http\Controllers\frontend\AppController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\ReportController;
 use App\Http\Controllers\frontend\ReviewController;
+use App\Http\Controllers\backend\DeveloperController;
 use App\Http\Controllers\frontend\CategoryController;
 use App\Http\Controllers\frontend\auth\LoginController;
 use App\Http\Controllers\backend\NotificationController;
@@ -17,7 +18,6 @@ use App\Http\Controllers\frontend\auth\ResetPasswordController;
 use App\Http\Controllers\frontend\auth\ForgotPasswordController;
 
 Route::get('/', [HomeController::class, 'index']);
-// Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -34,6 +34,21 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/admin', [UserController::class, 'getLogin']);
 Route::post('/admin', [UserController::class, 'postLogin']);
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/developers', [DeveloperController::class, 'index'])->name('admin.developers');
+    Route::post('/admin/developers/{id}/approve', [DeveloperController::class, 'approve'])->name('admin.developers.approve');
+    Route::post('/admin/developers/{id}/reject', [DeveloperController::class, 'reject'])->name('admin.developers.reject');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/developer/register', [DeveloperController::class, 'showRegistrationForm'])->name('developer.register');
+    Route::post('/developer/register', [DeveloperController::class, 'register']);
+});
+
+Route::middleware(['auth', 'developer'])->group(function () {
+    Route::get('/developer/dashboard', [DeveloperController::class, 'dashboard'])->name('developer.dashboard');
+});
 
 Route::get('/search', [AppController::class, 'search'])->name('search');
 Route::get('/search/load-more', [AppController::class, 'loadMore'])->name('search.loadMore');
@@ -74,19 +89,3 @@ Route::post('/upload-video', [VideoUploadController::class, 'uploadVideo'])->nam
 
 Route::get('/upload-apk', [APKUploadController::class, 'uploadForm'])->name('file.upload.form');
 Route::post('/upload-apk', [APKUploadController::class, 'uploadApk'])->name('file.upload.apk');
-
-// // Đăng ký
-// Route::get('/admin/register', [AuthController::class, 'showRegisterForm'])->name('admin.register.show');
-// Route::post('/admin/register', [AuthController::class, 'register'])->name('admin.register');
-
-// // Đăng nhập
-// Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('admin.login.show');
-// Route::post('/admin/login', [AuthController::class, 'login'])->name('admin.login');
-
-// // Đăng xuất - nên là POST để bảo mật tốt hơn
-// Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-// // Dashboard - Trang chính sau khi đăng nhập
-// Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware('auth');
-
-// Route::post('/cart/add', [CartController::class, 'add'])->name('add_to_cart');
