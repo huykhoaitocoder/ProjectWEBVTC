@@ -37,13 +37,13 @@ Route::post('/admin', [UserController::class, 'postLogin']);
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/developers', [DeveloperController::class, 'index'])->name('admin.developers');
-    Route::post('/admin/developers/{id}/approve', [DeveloperController::class, 'approve'])->name('admin.developers.approve');
     Route::post('/admin/developers/{id}/reject', [DeveloperController::class, 'reject'])->name('admin.developers.reject');
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/developer/register', [DeveloperController::class, 'showRegistrationForm'])->name('developer.register');
-    Route::post('/developer/register', [DeveloperController::class, 'register']);
+    Route::post('/developer/register', [DeveloperController::class, 'register'])->name('developer.register');
+    Route::get('/check-developer-name', [DeveloperController::class, 'checkName'])->name('developer.checkName');
 });
 
 Route::middleware(['auth', 'developer'])->group(function () {

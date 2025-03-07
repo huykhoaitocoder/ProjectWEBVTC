@@ -419,3 +419,11 @@ body.login-page::before {
     border-radius: 5px;
 }
 
+#step1, #step2, #step3, #step4 {
+    margin-top: 40px; 
+}
+
+#step1 h4, #step2 h4, #step3 h4, #step4 h4 {
+    margin-bottom: 30px; 
+}
+

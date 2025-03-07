@@ -12,8 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
 </head>
 <body>
 
@@ -70,8 +68,7 @@
 
                 <div class="row">
                     <div class="col text-center mt-4">
-                        <p class="mb-0">© 2025 APKRebel Play. Tất cả quyền lợi được bảo lưu.</p>
-                        <p class="mb-0">APKRebel không liên kết với Google Play hoặc APKPure.</p>
+                        <p class="mb-0">© 2025 VH APK. Tất cả quyền lợi được bảo lưu.</p>
                     </div>
                 </div>
             </div>
@@ -80,5 +77,7 @@
 
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 </body>
 </html>
