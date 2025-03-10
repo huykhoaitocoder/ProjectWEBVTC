@@ -10,14 +10,12 @@ use App\Http\Controllers\backend\DeveloperController;
 use App\Http\Controllers\frontend\CategoryController;
 use App\Http\Controllers\frontend\auth\LoginController;
 use App\Http\Controllers\backend\NotificationController;
-use App\Http\Controllers\backend\file\APKUploadController;
+use App\Http\Controllers\frontend\UserProfileController;
 use App\Http\Controllers\frontend\auth\RegisterController;
-use App\Http\Controllers\backend\file\ImageUploadController;
-use App\Http\Controllers\backend\file\VideoUploadController;
 use App\Http\Controllers\frontend\auth\ResetPasswordController;
 use App\Http\Controllers\frontend\auth\ForgotPasswordController;
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -31,6 +29,12 @@ Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name(
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserProfileController::class, 'edit'])->name('profile');
+    Route::post('/profile/update', [UserProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/update-avatar', [UserProfileController::class, 'updateAvatar'])->name('profile.update_avatar');
+});
 
 Route::get('/admin', [UserController::class, 'getLogin']);
 Route::post('/admin', [UserController::class, 'postLogin']);
@@ -48,7 +52,12 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'developer'])->group(function () {
     Route::get('/developer/dashboard', [DeveloperController::class, 'dashboard'])->name('developer.dashboard');
+    Route::get('/developer/apps', [DeveloperController::class, 'list'])->name('developer.apps');
+    Route::get('/developer/apps/create', [DeveloperController::class, 'create'])->name('developer.apps.create');
+    Route::post('/developer/apps/store', [DeveloperController::class, 'store'])->name('developer.apps.store');
 });
+
+Route::get('/check-package-name', [AppController::class, 'checkPackageName']);
 
 Route::get('/search', [AppController::class, 'search'])->name('search');
 Route::get('/search/load-more', [AppController::class, 'loadMore'])->name('search.loadMore');
@@ -79,13 +88,3 @@ Route::post('/report', [ReportController::class, 'store'])
 
 Route::get('/{type}', [AppController::class, 'index'])
     ->where('type', 'apps|games|windows'); 
-
-Route::get('/upload-image', [ImageUploadController::class, 'uploadForm'])->name('image.form');
-Route::post('/upload-image', [ImageUploadController::class, 'uploadImages'])->name('image.upload');
-
-
-Route::get('/upload-video', [VideoUploadController::class, 'uploadForm'])->name('video.upload.form');
-Route::post('/upload-video', [VideoUploadController::class, 'uploadVideo'])->name('video.upload');
-
-Route::get('/upload-apk', [APKUploadController::class, 'uploadForm'])->name('file.upload.form');
-Route::post('/upload-apk', [APKUploadController::class, 'uploadApk'])->name('file.upload.apk');

@@ -9,6 +9,16 @@ class AppVersion extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'app_id', 'version_name',
+        'changelog', 'apk_path', 'file_size',
+        'screenshots', 'video', 'status'
+    ];
+
+    protected $casts = [
+        'screenshots' => 'array',
+    ];
+
     public function app()
     {
         return $this->belongsTo(App::class);

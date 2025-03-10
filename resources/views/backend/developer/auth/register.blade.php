@@ -21,14 +21,21 @@
 
             <div id="step2" style="display: none;">
                 <h4>Nhập hồ sơ Developer</h4>
-                <input type="text" name="full_name" class="form-control form-control-lg mt-4" placeholder="Họ và tên đầy đủ" required>
-                <input type="email" name="email" class="form-control form-control-lg mt-4" placeholder="Email" required>
-                <input type="text" name="phone" class="form-control form-control-lg mt-4" placeholder="Số điện thoại" required>
-                <input type="text" name="address" class="form-control form-control-lg mt-4" placeholder="Địa chỉ" required>
+                <input type="email" name="email" id="email" class="form-control form-control-lg mt-4" placeholder="Email" required>
+                <button type="button" class="btn btn-secondary mt-2" onclick="sendOTP()">Gửi mã xác thực</button>
+
+                <input type="text" id="otp" class="form-control form-control-lg mt-2" placeholder="Nhập mã OTP" disabled>
+
+                <small id="emailStatus" class="text-success mt-2"></small>
+
+                <input type="text" name="full_name" id="full_name" class="form-control form-control-lg mt-4" placeholder="Họ và tên đầy đủ" required>
+                <input type="text" name="phone" id="phone" class="form-control form-control-lg mt-4" placeholder="Số điện thoại" required>
+                <input type="text" name="address" id="address" class="form-control form-control-lg mt-4" placeholder="Địa chỉ" required>
                 <input type="url" name="website" class="form-control form-control-lg mt-4" placeholder="Website (nếu có)">
+
                 <div class="mt-5 d-flex justify-content-between">
                     <button type="button" class="btn btn-secondary btn-lg px-5" onclick="prevStep(1)">Quay lại</button>
-                    <button type="button" class="btn btn-primary btn-lg px-5" onclick="nextStep(3)">Tiếp tục</button>
+                    <button type="button" class="btn btn-primary btn-lg px-5" id="continueBtn" onclick="nextStep(3)">Tiếp tục</button>
                 </div>
             </div>
 
@@ -85,30 +92,26 @@ function prevStep(step) {
 
 document.getElementById('developerForm').addEventListener('submit', function (e) {
     e.preventDefault();
+    
     let formData = new FormData(this);
+    formData.append('_token', '{{ csrf_token() }}');
 
     fetch("{{ route('developer.register') }}", {
         method: "POST",
-        headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-        body: formData
+        body: formData 
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.json(); 
-    })
+    .then(response => response.json()) 
     .then(data => {
         if (data.success) {
             alert("Đăng ký thành công!");
-            window.location.href = "{{ route('developer.dashboard') }}";
+            window.location.href = data.redirect;
         } else {
             alert("Lỗi: " + (data.message || "Đăng ký thất bại"));
         }
     })
     .catch(error => {
-        console.error("Lỗi kết nối:", error);
-        alert("Lỗi!");
+        console.error("Lỗi:", error);
+        alert("Lỗi hệ thống! Vui lòng thử lại.");
     });
 });
 </script>

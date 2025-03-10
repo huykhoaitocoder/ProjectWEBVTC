@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class App extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
     
-    protected $table = 'apps';
+    protected $fillable = [
+        'developer_id', 'category_id', 'name', 'description',
+        'package_name', 'price', 'icon', 'status',
+        'total_downloads', 'average_rating'
+    ];
 
     public function category()
     {
@@ -24,10 +30,6 @@ class App extends Model
     public function downloads()
     {
         return $this->hasMany(Download::class);
-    }
-
-    public function screenshots() {
-        return $this->hasMany(Screenshot::class);
     }
     
     public function versions() {

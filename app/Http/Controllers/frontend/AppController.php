@@ -5,13 +5,14 @@ namespace App\Http\Controllers\frontend;
 use App\Models\App;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\AppVersion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AppController extends Controller
 {
     public function index($type) {
-        $typeMapping = ['games' => 'game', 'apps' => 'app', 'windows' => 'window'];
+        $typeMapping = ['games' => 'game', 'apps' => 'app', 'tools' => 'tool'];
         $mappedType = $typeMapping[$type] ?? abort(404);
     
         $categories = Category::where('type', $mappedType)->get();
@@ -20,7 +21,7 @@ class AppController extends Controller
         $mainCategory = $categories->first();
     
         view()->share('seoData', [
-            'title' => "{$mainCategory->type} - APKRebel Play",
+            'title' => "{$mainCategory->type} - VH APK",
             'canonical' => url()->current(),
         ]);
     
@@ -122,5 +123,12 @@ class AppController extends Controller
             ->get();
 
         return $similarApps;
+    }
+
+    public function checkPackageName(Request $request)
+    {
+        $exists = App::where('package_name', $request->package_name)->exists();
+
+        return response()->json(['exists' => $exists]);
     }
 }

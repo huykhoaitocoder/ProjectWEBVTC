@@ -21,6 +21,10 @@ a {
     height: 50px;
 }
 
+#menu-items .nav-link {
+    font-size: 1.1rem; 
+}
+
 .nav-link.active {
     font-weight: bold;
     color: #17f393 !important;
@@ -427,3 +431,10 @@ body.login-page::before {
     margin-bottom: 30px; 
 }
 
+.card {
+    border-radius: 12px;
+}
+img.img-thumbnail {
+    border-radius: 50%;
+    object-fit: cover;
+}

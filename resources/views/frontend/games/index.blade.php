@@ -14,7 +14,7 @@
                     <div class="game-meta">
                         <img src="{{ asset($game->icon) }}" alt="{{ $game->title }}" class="game-icon">
                         <div>
-                            <span class="developer">{{ $game->developer->company_name }}</span>
+                            <span class="developer">{{ $game->developer->name }}</span>
                             <span class="age-rating">{{ number_format($game->average_rating, 1) }}<i class="fa fa-star" style="font-size:10px; position: relative; top: -1px; left: 1px"></i></span>
                         </div>
                     </div>

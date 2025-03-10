@@ -3,19 +3,17 @@
 namespace App\Http\Controllers\backend;
 
 use Log;
+use App\Models\App;
+use App\Models\Category;
 use App\Models\Developer;
+use App\Models\AppVersion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DeveloperController extends Controller
 {
-    public function index()
-    {
-        // $developers = Developer::where('status', 'pending')->get();
-        // return view('admin.developers.index', compact('developers'));
-    }
-
     // public function reject($id)
     // {
     //     Developer::where('id', $id)->update(['status' => 'rejected']);
@@ -25,6 +23,70 @@ class DeveloperController extends Controller
     public function dashboard()
     {
         return view('backend.developer.dashboard.index');
+    }
+
+    public function create() {
+        $categories = Category::all();
+        
+        return view('backend.developer.apps.create', compact('categories'));
+    }
+
+    public function store(Request $request) {
+        $iconPath = $request->file('icon') ? $request->file('icon')->store('icons', 's3') : null;
+
+        $app = App::create([
+            'developer_id' => Auth::id(),
+            'category_id' => $request->category_id,
+            'name' => $request->name,
+            'package_name' => $request->package_name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'icon' => $iconPath,
+            'status' => 'pending', 
+        ]);
+
+        $apkFile = $request->file('apk');
+        $apkPath = "apps/{$app->id}/versions/" . $apkFile->getClientOriginalName();
+        
+        Storage::disk('s3')->put($apkPath, file_get_contents($apkFile), [
+            'ContentType' => 'application/vnd.android.package-archive',
+        ]);
+    
+        $apkSize = $apkFile->getSize();
+
+        $screenshots = [];
+        if ($request->hasFile('screenshots')) {
+            foreach ($request->file('screenshots') as $screenshot) {
+                $path = "apps/{$app->id}/screenshots/" . $screenshot->getClientOriginalName();
+                Storage::disk('s3')->put($path, file_get_contents($screenshot));
+                $screenshots[] = $path;
+            }
+        }
+
+        $videoPath = null;
+        if ($request->hasFile('video')) {
+            $videoFile = $request->file('video');
+            $videoPath = "apps/{$app->id}/videos/" . $videoFile->getClientOriginalName();
+            Storage::disk('s3')->put($videoPath, file_get_contents($videoFile));
+        }
+
+        AppVersion::create([
+            'app_id' => $app->id,
+            'version_name' => $request->version_name,
+            'changelog' => $request->changelog,
+            'apk_path' => $apkPath,
+            'file_size' => $apkSize,
+            'screenshots' => $screenshots,
+            'video' => $videoPath,
+            'status' => 'pending', 
+        ]);
+
+        return redirect()->route('developer.apps')->with('success', 'Ứng dụng đã được tạo và chờ phê duyệt!');
+    }
+
+    public function list() {
+        $apps = App::where('developer_id', auth()->id())->get();
+        return view('backend.developer.apps.list', compact('apps'));
     }
 
     public function showRegistrationForm()
@@ -60,34 +122,35 @@ class DeveloperController extends Controller
         ]);
 
         if (Developer::where('user_id', Auth::id())->exists()) {
-            return redirect()->back()->with('error', 'Bạn đã là Developer!');
+            return response()->json([
+                'success' => false,
+                'message' => 'Bạn đã là Developer!'
+            ], 400);
         }
 
-        $user = auth()->user(); 
+        $user = auth()->user();
 
-        if (!$user->developer) {
-            Developer::create([
-                'user_id' => $user->id,
-                'name' => $request->name,
-                'full_name' => $request->full_name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'address' => $request->address,
-                'website' => $request->website,
-            ]);
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy người dùng'], 404);
+        }
+
+        Developer::create([
+            'user_id' => $user->id,
+            'name' => $request->name,
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'website' => $request->website,
+        ]);
         
-        if ($user) {
-            $user->update(['role' => 'developer']);
-        } else {
-            return response()->json(['error' => 'Không tìm thấy người dùng'], 404);
-        }
+        $user->update(['role' => 'developer']);
 
         return response()->json([
             'success' => true,
             'message' => 'Đăng ký Developer thành công!',
             'redirect' => route('developer.dashboard')
         ]);
-        }
     }
 
     public function checkName(Request $request)

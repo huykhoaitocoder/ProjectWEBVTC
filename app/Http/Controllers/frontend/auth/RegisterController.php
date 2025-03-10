@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend\auth;
 
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,15 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+        ]);
+
+        UserProfile::create([
+            'user_id' => $user->id,
+            'full_name' => null,
+            'phone' => null,
+            'address' => null,
+            'bio' => null,
+            'social_links' => null,
         ]);
 
         Auth::login($user); 
