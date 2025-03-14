@@ -9,7 +9,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $table = 'purchases'; 
+    protected $table = 'purchases';
 
     public $timestamps = false;
 
@@ -19,7 +19,7 @@ class Purchase extends Model
         'amount',
         'payment_status',
         'created_at'
-    ]; 
+    ];
 
     public function user()
     {

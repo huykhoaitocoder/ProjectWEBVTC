@@ -27,14 +27,20 @@
                         <i class="bi bi-download"></i> Tải xuống lại
                     </a>
                 @else
-                    <a href="#" class="btn btn-primary">
-                        <i class="bi bi-download"></i> Mua: {{ number_format($app->price, 0) . ' VNĐ' }}
-                    </a>
+                    <form action="{{ route('payment.method.show',['id' => $app->id])}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="bi bi-download"></i> Mua: {{ number_format($app->price, 0) . ' VNĐ' }}
+                        </button>
+                    </form>
                 @endif
             @else
-                <a href="#" class="btn btn-success btn-lg">
-                    <i class="bi bi-download"></i> Tải về APK
-                </a>
+                <form action="#" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="bi bi-download"></i> Tải về APK
+                    </button>
+                </form>
             @endif
 
             <div class="d-flex justify-content-center mt-3">
@@ -64,24 +70,24 @@
         <div class="p-4 position-relative">
         <h4 class="text-xl font-semibold mb-4">Ảnh chụp màn hình</h4>
         <div class="position-relative">
-            <button id="prevBtn" class="position-absolute start-0 top-50 translate-middle-y bg-white border-0 p-2 shadow rounded-circle" 
-                    onclick="scrollLeft()" 
+            <button id="prevBtn" class="position-absolute start-0 top-50 translate-middle-y bg-white border-0 p-2 shadow rounded-circle"
+                    onclick="scrollLeft()"
                     style="z-index: 10; width: 40px; height: 40px; display: none;">
                 ❮
             </button>
-            <div id="screenshotContainer" class="d-flex overflow-auto gap-3" 
+            <div id="screenshotContainer" class="d-flex overflow-auto gap-3"
                 style="scroll-behavior: smooth; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; cursor: grab;">
                 @foreach($screenshots as $screenshot)
                     <div class="flex-shrink-0" style="scroll-snap-align: start; width: auto;">
                         <img src="{{ $screenshot }}" alt="Screenshot"
-                            class="rounded shadow-lg screenshot" 
+                            class="rounded shadow-lg screenshot"
                             style="max-height: 500px; max-width: 100%; object-fit: cover; cursor: pointer;"
                             onclick="openModal(this.src)">
                     </div>
                 @endforeach
             </div>
-            <button id="nextBtn" class="position-absolute end-0 top-50 translate-middle-y bg-white border-0 p-2 shadow rounded-circle" 
-                    onclick="scrollRight()" 
+            <button id="nextBtn" class="position-absolute end-0 top-50 translate-middle-y bg-white border-0 p-2 shadow rounded-circle"
+                    onclick="scrollRight()"
                     style="z-index: 10; width: 40px; height: 40px;">
                 ❯
             </button>
@@ -165,7 +171,7 @@
             @forelse($app->versions as $version)
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        <strong>{{ $version->version_name }}</strong> - {{ $version->file_size }} MB  
+                        <strong>{{ $version->version_name }}</strong> - {{ $version->file_size }} MB
                         <br><small>Cập nhật: {{ $version->created_at?->format('d/m/Y') ?? 'Không rõ' }}</small>
                     </div>
                     <a href="{{ $version->download_link }}" class="btn btn-success">Tải về</a>
@@ -176,7 +182,7 @@
                 </li>
             @endforelse
         </ul>
-        
+
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2>Đánh giá của người dùng</h2>
 
@@ -192,21 +198,21 @@
 
             @include('frontend.reviews.create')
         </div>
-        
+
         @if(auth()->check())
                 @if($userReview)
                     <div class="your-review p-4 border rounded-2xl shadow-sm bg-light">
                         <div class="d-flex align-items-center mb-3">
-                            <img src="{{ $userReview->user->avatar ?? asset('images/user-icon.png') }}" 
-                                alt="Avatar" 
-                                class="rounded-circle me-3" 
+                            <img src="{{ $userReview->user->avatar ?? asset('images/user-icon.png') }}"
+                                alt="Avatar"
+                                class="rounded-circle me-3"
                                 width="50" height="50">
                             <h5 class="mb-0">{{ $userReview->user->name }}</h5>
                         </div>
 
                         <div class="mb-2">
                             <p class="mb-1">
-                                ⭐ {{ $userReview->rating }}/5 
+                                ⭐ {{ $userReview->rating }}/5
                                 <span class="text-muted ms-2">{{ $userReview->created_at->format('d/m/Y') }}</span>
                             </p>
                         </div>

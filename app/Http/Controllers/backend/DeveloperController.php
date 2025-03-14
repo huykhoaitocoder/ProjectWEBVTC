@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\backend;
 
 use Log;
 use App\Models\App;
@@ -35,13 +35,13 @@ class DeveloperController extends Controller
         $user = Auth::user();
 
         if ($user->developer) {
-            $developerId = $user->developer->id; 
+            $developerId = $user->developer->id;
         } else {
             return redirect()->back()->with('error', 'Bạn không phải là nhà phát triển.');
         }
 
         $iconPath = $request->file('icon') ? $request->file('icon')->store('icons', 's3') : null;
-        $iconUrl = $iconPath ? Storage::disk('s3')->url($iconPath) : null;  
+        $iconUrl = $iconPath ? Storage::disk('s3')->url($iconPath) : null;
 
         $app = App::create([
             'developer_id' => $developerId,
@@ -50,56 +50,56 @@ class DeveloperController extends Controller
             'package_name' => $request->package_name,
             'description' => $request->description,
             'price' => $request->price,
-            'icon' => $iconUrl,  
-            'status' => 'pending', 
+            'icon' => $iconUrl,
+            'status' => 'pending',
         ]);
-    
+
         $apkFile = $request->file('apk');
         $apkPath = "apps/{$app->id}/versions/" . $apkFile->getClientOriginalName();
         Storage::disk('s3')->put($apkPath, file_get_contents($apkFile), [
             'ContentType' => 'application/vnd.android.package-archive',
         ]);
         $apkUrl = Storage::disk('s3')->url($apkPath);
-    
+
         $apkSize = $apkFile->getSize();
-    
+
         $screenshots = [];
         if ($request->hasFile('screenshots')) {
             foreach ($request->file('screenshots') as $screenshot) {
                 $path = "apps/{$app->id}/screenshots/" . $screenshot->getClientOriginalName();
                 Storage::disk('s3')->put($path, file_get_contents($screenshot));
-                $screenshots[] = Storage::disk('s3')->url($path);  
+                $screenshots[] = Storage::disk('s3')->url($path);
             }
         }
-    
+
         $videoId = null;
         if ($request->hasFile('video')) {
             $videoFile = $request->file('video');
             $videoId = $this->uploadToYouTube($videoFile, $request->name, $request->description);
         }
-        
+
         AppVersion::create([
             'app_id' => $app->id,
             'version_name' => $request->version_name,
             'changelog' => $request->changelog,
-            'apk_path' => $apkUrl,  
+            'apk_path' => $apkUrl,
             'file_size' => $apkSize,
             'screenshots' => $screenshots,
             'video' => $videoId,
-            'status' => 'pending', 
+            'status' => 'pending',
         ]);
-    
+
         return redirect()->route('developer.apps')->with('success', 'Ứng dụng đã được tạo và chờ phê duyệt!');
-    }    
+    }
 
     private function uploadToYouTube($videoFile, $title, $description) {
         $client = new Google_Client();
         $client->setAuthConfig(storage_path('youtube_client_secret.json'));
         $client->addScope(Google_Service_YouTube::YOUTUBE_UPLOAD);
         $client->setAccessType('offline');
-    
+
         $youtube = new Google_Service_YouTube($client);
-        
+
         $video = new Google_Service_YouTube_Video();
         $video->setSnippet(new Google_Service_YouTube_VideoSnippet([
             'title' => $title,
@@ -107,11 +107,11 @@ class DeveloperController extends Controller
             'tags' => ['app', 'android'],
             'categoryId' => '28' // 28 = Tech
         ]));
-    
+
         $video->setStatus(new Google_Service_YouTube_VideoStatus([
             'privacyStatus' => 'public'
         ]));
-    
+
         $chunkSizeBytes = 1 * 1024 * 1024;
         $client->setDefer(true);
         $insertRequest = $youtube->videos->insert('status,snippet', $video);
@@ -123,26 +123,26 @@ class DeveloperController extends Controller
             true,
             $chunkSizeBytes
         );
-    
+
         $media->setFileSize(filesize($videoFile));
         $status = false;
         $handle = fopen($videoFile, 'rb');
-        
+
         while (!$status && !feof($handle)) {
             $chunk = fread($handle, $chunkSizeBytes);
             $status = $media->nextChunk($chunk);
         }
-    
+
         fclose($handle);
         $client->setDefer(false);
-    
-        return $status->id; 
+
+        return $status->id;
     }
 
     public function list()
     {
         $developer = auth()->user()->developer;
-        
+
         if (!$developer) {
             return redirect()->route('developer.register')->with('error', 'Bạn không phải là nhà phát triển.');
         }

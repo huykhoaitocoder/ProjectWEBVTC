@@ -14,7 +14,8 @@
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.8",
-        "league/flysystem-aws-s3-v3": "^3.29"
+        "league/flysystem-aws-s3-v3": "^3.29",
+        "ext-curl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

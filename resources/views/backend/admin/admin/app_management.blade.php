@@ -4,39 +4,31 @@
 
 @section('content')
     <div class="container mt-4">
-        <h2 class="mb-4">Quản lý ứng dụng</h2>
+        <h2 class="mb-4 text-primary fw-bold text-gradient text-start">Quản lý ứng dụng</h2>
 
         <!-- Thanh công cụ tìm kiếm và bộ lọc -->
-        <div class="d-flex justify-content-between mb-3">
-            <form class="d-flex" method="GET" action="{{ route('admin.apps.index') }}">
-                <input class="form-control me-2" type="text" name="search"
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form class="d-flex shadow-sm rounded p-2 bg-light" method="GET" action="{{ route('admin.apps.index') }}">
+                <input class="form-control me-2 border-0" type="text" name="search"
                        placeholder="Nhập tên ứng dụng..." value="{{ request('search') }}">
-                <button class="btn btn-outline-primary" type="submit">Tìm kiếm</button>
+                <button class="btn btn-primary shadow" type="submit">Tìm kiếm</button>
             </form>
 
             <!-- Bộ lọc trạng thái -->
-            <div>
-                <a href="{{ route('admin.apps.index', ['status' => 'approved']) }}" class="btn btn-success btn-sm">
-                    Ứng dụng đang hoạt động
-                </a>
-                <a href="{{ route('admin.apps.index', ['status' => 'pending']) }}" class="btn btn-warning btn-sm">
-                    Đang chờ phê duyệt
-                </a>
-                <a href="{{ route('admin.apps.index', ['status' => 'rejected']) }}" class="btn btn-danger btn-sm">
-                    Ứng dụng bị xoá
-                </a>
+            <div class="btn-group shadow-sm" role="group">
+                <a href="{{ route('admin.apps.index', ['status' => 'approved']) }}" class="btn btn-success btn-sm">Đang hoạt động</a>
+                <a href="{{ route('admin.apps.index', ['status' => 'pending']) }}" class="btn btn-warning btn-sm">Chờ duyệt</a>
+                <a href="{{ route('admin.apps.index', ['status' => 'rejected']) }}" class="btn btn-danger btn-sm">Bị xoá</a>
                 <a href="{{ route('admin.apps.index') }}" class="btn btn-secondary btn-sm">Tất cả</a>
             </div>
         </div>
 
         <!-- Bảng danh sách ứng dụng -->
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                Danh sách ứng dụng
-            </div>
+        <div class="card shadow-lg border-0 rounded-3">
+            <div class="card-header bg-gradient text-white fw-bold">Danh sách ứng dụng</div>
             <div class="card-body">
-                <table class="table table-bordered table-striped table-hover">
-                    <thead class="table-dark">
+                <table class="table table-hover align-middle text-start">
+                    <thead class="bg-gradient text-white">
                     <tr>
                         <th>#</th>
                         <th>Icon</th>
@@ -50,14 +42,14 @@
                     </thead>
                     <tbody>
                     @forelse ($apps as $index => $app)
-                        <tr>
+                        <tr class="table-row">
                             <td>{{ $apps->firstItem() + $index }}</td>
                             <td>
-                                <img src="{{$app->icon}}" alt="Icon" width="40" height="40" class="rounded">
+                                <img src="{{$app->icon}}" alt="Icon" width="40" height="40" class="rounded-circle shadow-sm">
                             </td>
                             <td>
-                                <a href="{{ route('admin.app.details', ['id' => $app->id]) }}">
-                                {{ $app->name }}
+                                <a href="{{ route('admin.app.details', ['id' => $app->id]) }}" class="text-decoration-none fw-bold text-dark hover-primary">
+                                    {{ $app->name }}
                                 </a>
                             </td>
                             <td>{{ $app->category->name ?? 'Không có' }}</td>
@@ -99,4 +91,22 @@
             {{ $apps->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
+
+    <style>
+        .text-gradient {
+            background: linear-gradient(45deg, #007bff, #6610f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-gradient {
+            background: linear-gradient(90deg, #007bff, #6610f2);
+        }
+        .hover-primary:hover {
+            color: #007bff !important;
+        }
+        .table-row:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
 @endsection

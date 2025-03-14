@@ -1,21 +1,23 @@
 <?php
 
+use App\Http\Controllers\backend\admin\UserManagementController;
+use App\Http\Controllers\frontend\PaymentController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\frontend\AppController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\backend\CouponController;
 use App\Http\Controllers\backend\YouTubeController;
 use App\Http\Controllers\frontend\ReportController;
 use App\Http\Controllers\frontend\ReviewController;
-use App\Http\Controllers\Backend\DeveloperController;
+use App\Http\Controllers\backend\DeveloperController;
 use App\Http\Controllers\frontend\CategoryController;
-use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\backend\Admin\AdminController;
 use App\Http\Controllers\frontend\auth\LoginController;
-use App\Http\Controllers\Backend\NotificationController;
+use App\Http\Controllers\backend\NotificationController;
 use App\Http\Controllers\frontend\UserProfileController;
 use App\Http\Controllers\frontend\auth\RegisterController;
-use App\Http\Controllers\Backend\Admin\AppManagementController;
+use App\Http\Controllers\backend\Admin\AppManagementController;
 use App\Http\Controllers\frontend\auth\ResetPasswordController;
 use App\Http\Controllers\frontend\auth\ForgotPasswordController;
 use App\Http\Controllers\frontend\auth\EmailVerificationController;
@@ -112,6 +114,20 @@ Route::get('/{type}', [AppController::class, 'index']);
 //Route::get('/upload-apk', [APKUploadController::class, 'uploadForm'])->name('file.upload.form');
 //Route::post('/upload-apk', [APKUploadController::class, 'uploadApk'])->name('file.upload.apk');
 
+//pay
+Route::post('/payment-method/{id}', [PaymentController::class, 'showPaymentMethod'])->name('payment.method.show');
+Route::post('/payment-vnpay', [PaymentController::class, 'vnPay'])->name('payment.vnpay');
+Route::post('/payment-momo', [PaymentController::class, 'momo'])->name('payment.momo');
+Route::post('/payment-momoQr', [PaymentController::class, 'momoQr'])->name('payment.momo.qr');
+
+Route::post('/payment-zalopay', [PaymentController::class, 'momo'])->name('payment.zalopay');
+Route::post('/payment-paypal', [PaymentController::class, 'momo'])->name('payment.paypal');
+
+Route::get('/payment/momo/return/{app_id}', [PaymentController::class, 'momoReturn'])->name('payment.momo.return');
+Route::get('/payment/vnpay/return/{app_id}', [PaymentController::class, 'vnPayReturn'])->name('payment.vnpay.return');
+Route::get('/payment-status/{status}', [PaymentController::class, 'paymentStatus'])->name('payment.status');
+
+
 //admin
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -119,7 +135,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/apps', [AppManagementController::class, 'index'])->name('admin.apps.index');
     Route::get('/app-details/{id}', [AppManagementController::class, 'getAppDetails'])->name('admin.app.details');
     Route::post('/update-status/{app}', [AppManagementController::class, 'updateStatus'])->name('admin.update.status');
-
+    // Quản lý user
+    Route::get('/users-management', [UserManagementController::class, 'index'])->name('admin.users.management.index');
+    Route::get('user-details/{id}', [UserManagementController::class, 'showUserDetail'])->name('admin.user.details');
+    Route::post('update-role/{id}', [UserManagementController::class, 'updateUserRole'])->name('admin.user.update.role');
 
 });
 
